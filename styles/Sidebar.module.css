@@ -1,0 +1,138 @@
+.sidebar {
+  height: 100vh;
+  width: 64px;
+  background-color: #111827;
+  border-right: 1px solid rgba(229, 231, 235, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  margin-bottom: 32px;
+  padding: 6px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.logo:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.topIcons, .bottomIcons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.iconButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  font-size: 20px;
+  color: #9ca3af;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.iconButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.iconButton.active {
+  color: #4f46e5;
+  background-color: rgba(79, 70, 229, 0.1);
+}
+
+.iconButton.active:hover {
+  background-color: rgba(79, 70, 229, 0.15);
+}
+
+.avatarButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-weight: 500;
+  border: 2px solid #1e40af;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.avatarButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
+}
+
+.tooltip {
+  position: absolute;
+  left: 54px;
+  background-color: #1f2937;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateX(5px);
+  animation: fadeIn 0.2s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* For responsive design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 56px;
+  }
+  
+  .iconButton, .avatarButton {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  
+}
