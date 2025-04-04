@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from 'react';
-import styles from '../../styles/Analytics.module.css';
+import styles from '../../styles/CompAnalysis.module.css';
 import { AiOutlineClose, AiOutlineInfoCircle, AiOutlineDown } from 'react-icons/ai';
 import { BsCalendarDate, BsTag, BsFileEarmark, BsFolder, BsSearch } from 'react-icons/bs';
 import Sidebar from '../components/Sidebar';
 
-const Analytics = () => {
+const CompAnalysis = () => {
   const [showMore, setShowMore] = useState(false);
   const [selectedProject, setSelectedProject] = useState('horizon');
   const [searchQuery, setSearchQuery] = useState('');
@@ -65,7 +65,7 @@ const Analytics = () => {
     const projectDetailsMappings = {
       'horizon': {
         title: `${project.title} (${project.number})`,
-        summary: `The project was focused on providing strategic and investment advisory services to RetailFlow Systems, a prominent provider of retail supply chain cloud services, during its acquisition of SkyPilot Technologies. SkyPilot Technologies specializes in Amazon seller tools that support first-party (1P) and third-party (3P) offerings, providing solutions such as inventory forecasting, advertising support, fulfillment reimbursements, and 1P vendor cost recovery. These services are designed to enhance operational efficiency and maximize revenue for Amazon sellers, leveraging data analytics and AI-driven insights to improve profitability and scalability. The consulting firm's role was pivotal in assessing SkyPilot Technologies' value and growth potential, ultimately contributing to the successful acquisition announced on January 7, 2025.`,
+        summary: `The project was focused on providing strategic and investment advisory services to RetailFlow Systems, a prominent provider of retail supply chain cloud services, during its acquisition of SkyPilot Technologies. SkyPilot Technologies specializes in Amazon seller tools that support first-party (1P) and third-party (3P) offerings, providing solutions such as inventory forecasting, advertising support, fulfillment reimbursements, and 1P vendor cost recovery. These services are designed to enhance operational efficiency and maximize revenue for Amazon sellers, leveraging data CompAnalysis and AI-driven insights to improve profitability and scalability. The consulting firm's role was pivotal in assessing SkyPilot Technologies' value and growth potential, ultimately contributing to the successful acquisition announced on January 7, 2025.`,
         documents: [
           { id: 1, title: 'Due Diligence Report.pdf', date: 'Jun 15, 2024' },
           { id: 2, title: 'Financial Analysis.xlsx', date: 'May 28, 2024' },
@@ -87,7 +87,7 @@ const Analytics = () => {
       },
       'aurora': {
         title: `${project.title} (${project.number})`,
-        summary: `Project Aurora was a vendor commercial due diligence (VCDD) engagement supporting ArtemisOne in a sell-side process to attract strategic investors. ArtemisOne is a specialist in AI-driven analytics platforms for the financial services sector. Our team analyzed product-market fit, conducted competitive benchmarking, and validated the company's growth projections. The analysis highlighted ArtemisOne's unique positioning in the emerging field of explainable AI for risk assessment and compliance automation. The engagement culminated in preparing detailed investment materials that led to successful funding from three strategic investors, valuing the company at $175 million.`,
+        summary: `Project Aurora was a vendor commercial due diligence (VCDD) engagement supporting ArtemisOne in a sell-side process to attract strategic investors. ArtemisOne is a specialist in AI-driven CompAnalysis platforms for the financial services sector. Our team analyzed product-market fit, conducted competitive benchmarking, and validated the company's growth projections. The analysis highlighted ArtemisOne's unique positioning in the emerging field of explainable AI for risk assessment and compliance automation. The engagement culminated in preparing detailed investment materials that led to successful funding from three strategic investors, valuing the company at $175 million.`,
         documents: [
           { id: 1, title: 'Investment Memorandum.pdf', date: 'May 30, 2022' },
           { id: 2, title: 'Growth Projection Analysis.xlsx', date: 'Apr 22, 2022' },
@@ -182,7 +182,7 @@ const Analytics = () => {
                         <strong>Project Atlas:</strong> Advisory services for Aurora Partners during their evaluation of TeraGuard, a cloud and IT service provider focused on managed services and cybersecurity solutions.
                       </li>
                       <li>
-                        <strong>Project Aurora:</strong> Support for ArtemisOne, an AI-driven analytics platform provider, in attracting strategic investors for their cloud-based financial services solutions.
+                        <strong>Project Aurora:</strong> Support for ArtemisOne, an AI-driven CompAnalysis platform provider, in attracting strategic investors for their cloud-based financial services solutions.
                       </li>
                       <li>
                         <strong>Project Orion:</strong> Advised HarborGate Investments on acquisition targets in the security sector, resulting in the acquisition of DefConEdge, a cloud security provider.
@@ -313,4 +313,4 @@ const Analytics = () => {
   );
 };
 
-export default Analytics;
+export default CompAnalysis;

@@ -1,10 +1,10 @@
 'use client'
 import React, { useState } from 'react';
-import styles from '../../styles/Games.module.css';
+import styles from '../../styles/PlayStoreInsights.module.css';
 import Sidebar from '../components/Sidebar';
 import { FaSearch, FaStar, FaFilter, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const Games = () => {
+const PlayStoreInsights = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilters, setActiveFilters] = useState({
     genre: [],
@@ -14,8 +14,8 @@ const Games = () => {
   });
   const [activePage, setActivePage] = useState(1);
 
-  // Dummy data for games
-  const games = [
+  // Dummy data for PlayStoreInsights
+  const PlayStoreInsights = [
     {
       id: 1,
       title: 'Celestial Odyssey',
@@ -29,7 +29,7 @@ const Games = () => {
     {
       id: 2,
       title: 'Neon Drift',
-      company: 'Velocity Games',
+      company: 'Velocity PlayStoreInsights',
       rating: 4.5,
       tags: ['Racing', 'Arcade', 'Multiplayer'],
       description: 'Experience high-octane racing in futuristic neon-lit cities with cutting-edge graphics and precise controls.',
@@ -69,7 +69,7 @@ const Games = () => {
     {
       id: 6,
       title: 'Code Warriors',
-      company: 'Logic Games',
+      company: 'Logic PlayStoreInsights',
       rating: 4.4,
       tags: ['Puzzle', 'Educational', 'Programming'],
       description: 'Learn programming concepts through engaging puzzles and challenges in a vibrant digital world.',
@@ -123,7 +123,7 @@ const Games = () => {
         <div className={styles.header}>
           <h1 className={styles.title}>Game Library</h1>
           <p className={styles.subtitle}>
-            Discover and explore our collection of carefully curated games across various genres and platforms.
+            Discover and explore our collection of carefully curated PlayStoreInsights across various genres and platforms.
           </p>
         </div>
 
@@ -131,7 +131,7 @@ const Games = () => {
           <div className={styles.searchBar}>
             <input 
               type="text" 
-              placeholder="Search for games, genres, or companies" 
+              placeholder="Search for PlayStoreInsights, genres, or companies" 
               value={searchQuery}
               onChange={handleSearchChange}
             />
@@ -177,7 +177,7 @@ const Games = () => {
         </div>
 
         <div className={styles.content}>
-          {games.map(game => (
+          {PlayStoreInsights.map(game => (
             <div key={game.id} className={styles.gameCard}>
               <div className={styles.gameImageContainer}>
                 <img 
@@ -242,4 +242,4 @@ const Games = () => {
   );
 };
 
-export default Games;
+export default PlayStoreInsights;

@@ -1,0 +1,238 @@
+.chatContainer {
+    width: 100%;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px 16px 90px 16px;
+  }
+  
+  .message {
+    display: flex;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+    width: 100%;
+  }
+  
+  .userMessage {
+    justify-content: flex-end;
+  }
+  
+  .messageContent {
+    max-width: 80%;
+    border-radius: var(--card-radius);
+    padding: 12px 16px;
+    position: relative;
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow-sm);
+    animation: scaleIn 0.2s ease-out forwards;
+    transform-origin: left bottom;
+  }
+  
+  .userMessage .messageContent {
+    background-color: var(--primary-light);
+    transform-origin: right bottom;
+    color: var(--text-primary);
+  }
+  
+  .messageText {
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-line;
+    word-wrap: break-word;
+    color: var(--text-primary);
+  }
+  
+  .messageTimestamp {
+    font-size: 11px;
+    color: var(--text-light);
+    text-align: right;
+    margin-top: 4px;
+  }
+  
+  .thinkingIndicator {
+    display: flex;
+    gap: 6px;
+    padding: 8px;
+    justify-content: center;
+    max-width: 80px;
+  }
+  
+  .thinkingDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    opacity: 0.7;
+    animation: pulse 1.5s infinite ease-in-out;
+  }
+  
+  .thinkingDot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .thinkingDot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  .inputContainer {
+    position: fixed;
+    bottom: 24px;
+    width: 100%;
+    max-width: 768px;
+    padding: 0 24px;
+    z-index: 10;
+    animation: slideUp 0.3s forwards;
+  }
+  
+  .inputControlsWrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+    background-color: var(--input-bg);
+    border-radius: 24px;
+    padding: 8px 8px 8px 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+  
+  .inputWrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  .chatInput {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    font-size: 15px;
+    background-color: transparent;
+    resize: none;
+    max-height: 120px;
+    font-family: inherit;
+    outline: none;
+    overflow: auto;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+  
+  .chatInput::placeholder {
+    color: var(--text-light);
+  }
+  
+  .uploadButton {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: transparent;
+    color: var(--text-light);
+    transition: all var(--animation-speed) ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .uploadButton:hover {
+    background-color: var(--hover-color);
+    color: var(--primary-color);
+  }
+  
+  .sendButton {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--hover-color);
+    color: var(--text-light);
+    font-size: 16px;
+    transition: all var(--animation-speed) ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .sendButtonActive {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .sendButtonActive:hover {
+    background-color: var(--primary-dark);
+    color: white;
+  }
+  
+  .sendButtonDisabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.98);
+      opacity: 0.8;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .inputContainer {
+      padding: 0 16px;
+    }
+    
+    .messageContent {
+      max-width: 90%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .inputContainer {
+      padding: 0 12px;
+      bottom: 16px;
+    }
+    
+    .chatContainer {
+      padding: 20px 8px 90px 8px;
+    }
+  }

@@ -1,10 +1,10 @@
 'use client'
 import React, { useState } from 'react';
-import styles from '../../styles/ReddCommunity.module.css';
+import styles from '../../styles/RedditResearch.module.css';
 import Sidebar from '../components/Sidebar';
 import { FaRedditAlien, FaArrowUp, FaArrowDown, FaCommentAlt, FaShare, FaBookmark, FaEllipsisH, FaTrophy, FaFire, FaStar, FaClock } from 'react-icons/fa';
 
-const ReddCommunity = () => {
+const RedditResearch = () => {
   const [activeSort, setActiveSort] = useState('hot');
   const [activePage, setActivePage] = useState(1);
   const [votedPosts, setVotedPosts] = useState({});
@@ -123,7 +123,7 @@ const ReddCommunity = () => {
         <div className={styles.header}>
           <h1 className={styles.title}>
             <FaRedditAlien className={styles.titleIcon} />
-            ReddCommunity
+            RedditResearch
           </h1>
           <p className={styles.subtitle}>
             Discover and engage with gaming communities, news, and discussions in one place.
@@ -302,4 +302,4 @@ const ReddCommunity = () => {
   );
 };
 
-export default ReddCommunity;
+export default RedditResearch;

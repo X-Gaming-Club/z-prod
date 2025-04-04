@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { FaGamepad } from "react-icons/fa";
 import { RiHome3Fill } from "react-icons/ri";
 import { TbAnalyze } from "react-icons/tb";
-import { IoIosSearch } from "react-icons/io";
+// import { IoIosSearch } from "react-icons/io";
 import { FaRedditAlien } from "react-icons/fa";
+import { CgInsights } from "react-icons/cg";
 import styles from '../../styles/Sidebar.module.css';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
@@ -20,24 +21,27 @@ const Sidebar = () => {
     // Map paths to corresponding menu item IDs
     if (pathname === '/') {
       setActiveIcon('home');
-    } else if (pathname === '/Games') {
-      setActiveIcon('games');
-    } else if (pathname === '/ReddCommunity') {
-      setActiveIcon('ReddCommunity');
-    } else if (pathname === '/Analytics') {
-      setActiveIcon('analytics');
-    } else if (pathname === '/search') {
+    } else if (pathname === '/PlayStoreInsights') {
+      setActiveIcon('PlayStoreInsights');
+    } else if (pathname === '/RedditResearch') {
+      setActiveIcon('RedditResearch');
+    } else if (pathname === '/CompAnalysis') {
+      setActiveIcon('CompAnalysis');
+    // } else if (pathname === '/search') {
+    //   setActiveIcon('search');
+    } else if (pathname === '/LiveopsInsights') {
       setActiveIcon('search');
     }
   }, [pathname]);
 
   // Menu items with their corresponding routes
   const menuItems = [
-    { id: 'search', icon: <IoIosSearch size={22} />, name: 'Search', route: '/' },
+    // { id: 'search', icon: <IoIosSearch size={22} />, name: 'Search', route: '/' },
     { id: 'home', icon: <RiHome3Fill size={22} />, name: 'Home', route: '/' },
-    { id: 'games', icon: <FaGamepad size={20} />, name: 'Games', route: '/Games' },
-    { id: 'ReddCommunity', icon: <FaRedditAlien size={22} />, name: 'ReddCommunity', route: '/ReddCommunity' },
-    { id: 'analytics', icon: <TbAnalyze size={22} />, name: 'Analytics', route: '/Analytics' },
+    { id: 'CompAnalysis', icon: <TbAnalyze size={22} />, name: 'CompAnalysis', route: '/CompAnalysis' },
+    { id: 'RedditResearch', icon: <FaRedditAlien size={22} />, name: 'RedditResearch', route: '/RedditResearch' },
+    { id: 'PlayStoreInsights', icon: <FaGamepad size={20} />, name: 'PlayStoreInsights', route: '/PlayStoreInsights' },
+    { id: 'LiveopsInsights', icon: <CgInsights size={20} />, name: 'LiveopsInsights', route: '/LiveopsInsights' },
   ];
 
   // Handle icon click with navigation
