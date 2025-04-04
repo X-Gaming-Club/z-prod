@@ -2,302 +2,319 @@
 import React, { useState } from 'react';
 import styles from '../../styles/RedditResearch.module.css';
 import Sidebar from '../components/Sidebar';
-import { FaRedditAlien, FaArrowUp, FaArrowDown, FaCommentAlt, FaShare, FaBookmark, FaEllipsisH, FaTrophy, FaFire, FaStar, FaClock } from 'react-icons/fa';
+import { FaRedditAlien, FaSearch, FaFilter, FaSortAmountDown, FaRegClock, FaFire, FaChartLine } from 'react-icons/fa';
+import { IoMdTrendingUp } from 'react-icons/io';
+import { BsBookmark, BsCalendar3, BsCardText } from 'react-icons/bs';
 
 const RedditResearch = () => {
-  const [activeSort, setActiveSort] = useState('hot');
-  const [activePage, setActivePage] = useState(1);
-  const [votedPosts, setVotedPosts] = useState({});
-
-  // Dummy data for posts
+  const [activeTab, setActiveTab] = useState('posts');
+  const [sortMethod, setSortMethod] = useState('relevance');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [timeRange, setTimeRange] = useState('month');
+  
+  // Dummy data for Reddit posts
   const posts = [
     {
       id: 1,
-      author: 'GamerPro123',
+      title: 'Anyone played the new update? What are your thoughts?',
+      author: 'GameEnthusiast42',
       subreddit: 'r/gaming',
-      timePosted: '5 hours ago',
-      title: 'Just finished Celestial Odyssey after 120 hours - here are my thoughts',
-      text: 'After an incredible journey spanning over 120 hours, I have finally completed Celestial Odyssey and all of its side quests. This game is truly a masterpiece of modern RPG design. The character development, world-building, and combat systems all come together to create one of the most immersive gaming experiences Ive had in years.',
-      image: '/api/placeholder/600/400',
-      upvotes: 1542,
-      comments: 328,
-      tags: ['Discussion', 'RPG', 'Review']
+      upvotes: 2467,
+      comments: 532,
+      timePosted: '2 days ago',
+      snippet: 'The new update has some interesting features but Im having issues with the new combat system. Anyone else experiencing this?',
+      sentiment: 'mixed'
     },
     {
       id: 2,
-      author: 'DevNinja',
-      subreddit: 'r/gamedev',
-      timePosted: '12 hours ago',
-      title: 'Implementing a better inventory system - code and demo included',
-      text: 'Ive been working on a new inventory system for my indie game that allows for better organization and drag-and-drop functionality. Ive included a working demo and code snippets in the comments for anyone who wants to implement something similar in their projects.',
-      upvotes: 876,
-      comments: 145,
-      tags: ['Tutorial', 'Code', 'UI/UX']
+      title: 'The progression system is broken and heres why',
+      author: 'BalanceWizard',
+      subreddit: 'r/gamedesign',
+      upvotes: 5283,
+      comments: 842,
+      timePosted: '1 week ago',
+      snippet: 'After dozens of hours of gameplay, its clear that the progression curve is fundamentally broken. The early game is too slow and the mid-game...',
+      sentiment: 'negative'
     },
     {
       id: 3,
-      author: 'NewsBot',
-      subreddit: 'r/gamingnews',
-      timePosted: '2 days ago',
-      title: 'BREAKING: Velocity Games announces Neon Drift 2 with revolutionary AI-powered racing mechanics',
-      text: 'Velocity Games has just announced Neon Drift 2, the sequel to their critically acclaimed racing game. The new title will feature revolutionary AI-powered racing mechanics that adapt to each players driving style to create personalized challenges and experiences.',
-      image: '/api/placeholder/600/400',
-      upvotes: 3254,
-      comments: 521,
-      tags: ['News', 'Announcement', 'Racing']
+      title: 'This game has the best character customization Ive seen',
+      author: 'RPGLover2023',
+      subreddit: 'r/games',
+      upvotes: 3891,
+      comments: 624,
+      timePosted: '3 days ago',
+      snippet: 'Ive spent more time in the character creator than the actual game. The level of detail is amazing and puts other RPGs to shame...',
+      sentiment: 'positive'
     },
     {
       id: 4,
-      author: 'PixelArtist',
-      subreddit: 'r/gameart',
-      timePosted: '1 day ago',
-      title: 'I recreated classic game characters in my own pixel art style',
-      text: 'Ive been working on a series where I recreate iconic game characters in my own unique pixel art style. Heres the first batch featuring characters from the most legendary games of the 90s era.',
-      image: '/api/placeholder/600/400',
-      upvotes: 952,
-      comments: 87,
-      tags: ['Art', 'PixelArt', 'Retro']
+      title: 'Tips for new players - everything I wish I knew',
+      author: 'HelpfulGamer',
+      subreddit: 'r/GamingTips',
+      upvotes: 1937,
+      comments: 312,
+      timePosted: '5 days ago',
+      snippet: 'After 100+ hours, here are some essential tips to help new players get started. First, focus on resource management before...',
+      sentiment: 'positive'
     }
   ];
-
+  
   // Dummy data for trending topics
   const trendingTopics = [
-    { id: 1, name: 'E3 2025 Announcements', stats: '25.4k posts today' },
-    { id: 2, name: 'Neon Drift 2 Reveal', stats: '12.3k posts today' },
-    { id: 3, name: 'Indie Game Showcase', stats: '8.7k posts today' },
-    { id: 4, name: 'Game Development Tips', stats: '5.2k posts today' },
-    { id: 5, name: 'Retro Gaming', stats: '3.9k posts today' },
+    { id: 1, topic: 'Combat System', mentions: 1283, sentiment: 'negative', change: '+32%' },
+    { id: 2, topic: 'Character Creation', mentions: 876, sentiment: 'positive', change: '+15%' },
+    { id: 3, topic: 'Server Stability', mentions: 764, sentiment: 'negative', change: '+128%' },
+    { id: 4, topic: 'New Content Update', mentions: 643, sentiment: 'mixed', change: 'New' },
+    { id: 5, topic: 'Monetization', mentions: 532, sentiment: 'negative', change: '+22%' }
   ];
-
+  
   // Dummy data for subreddits
   const subreddits = [
-    { id: 1, name: 'r/gaming', members: '40.2M members', joined: false },
-    { id: 2, name: 'r/gamedev', members: '5.8M members', joined: true },
-    { id: 3, name: 'r/gameart', members: '2.3M members', joined: false },
-    { id: 4, name: 'r/gamingnews', members: '3.7M members', joined: true },
-    { id: 5, name: 'r/indiegames', members: '1.5M members', joined: false },
+    { id: 1, name: 'r/gaming', members: '34.2M', relevantPosts: 287, sentiment: 'mixed' },
+    { id: 2, name: 'r/gamedesign', members: '612K', relevantPosts: 154, sentiment: 'negative' },
+    { id: 3, name: 'r/games', members: '3.7M', relevantPosts: 93, sentiment: 'positive' },
+    { id: 4, name: 'r/truegaming', members: '1.9M', relevantPosts: 76, sentiment: 'mixed' },
+    { id: 5, name: 'r/GameDevelopment', members: '428K', relevantPosts: 42, sentiment: 'positive' }
   ];
 
-  const handleSortChange = (sort) => {
-    setActiveSort(sort);
-    // Here you would fetch new data from backend based on sort criteria
-  };
-
-  const handleVote = (postId, direction) => {
-    setVotedPosts(prev => {
-      const current = prev[postId] || 'none';
-      
-      if (current === direction) {
-        const newVotes = { ...prev };
-        delete newVotes[postId];
-        return newVotes;
-      } else {
-        return { ...prev, [postId]: direction };
-      }
-    });
-    
-    // Here you would send the vote to the backend
-  };
-
-  const handleJoinSubreddit = (subredditId) => {
-    // Here you would send join/leave request to backend
-    console.log(`Toggle join for subreddit ${subredditId}`);
-  };
-
-  const handlePageChange = (page) => {
-    setActivePage(page);
-    // Here you would fetch new data from backend for the selected page
-  };
-
-  const sortIcons = {
-    hot: <FaFire />,
-    new: <FaClock />,
-    top: <FaTrophy />,
-    best: <FaStar />
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Search logic would go here
+    console.log('Searching for:', searchTerm);
   };
 
   return (
     <div className={styles.pageContainer}>
       <Sidebar />
-      <div className={styles.container}>
+      <main className={styles.mainContent}>
         <div className={styles.header}>
-          <h1 className={styles.title}>
-            <FaRedditAlien className={styles.titleIcon} />
-            RedditResearch
-          </h1>
-          <p className={styles.subtitle}>
-            Discover and engage with gaming communities, news, and discussions in one place.
-          </p>
-        </div>
-
-        <div className={styles.content}>
-          <div className={styles.mainFeed}>
-            <div className={styles.sortOptions}>
-              {Object.entries(sortIcons).map(([sort, icon]) => (
-                <button
-                  key={sort}
-                  className={`${styles.sortOption} ${activeSort === sort ? styles.sortOptionActive : ''}`}
-                  onClick={() => handleSortChange(sort)}
-                >
-                  {icon}
-                  <span>{sort.charAt(0).toUpperCase() + sort.slice(1)}</span>
-                </button>
-              ))}
+          <div className={styles.titleSection}>
+            <h1 className={styles.title}>
+              <FaRedditAlien className={styles.redditIcon} /> Reddit Research
+            </h1>
+            <p className={styles.subtitle}>Analyze community feedback and sentiment from Reddit</p>
+          </div>
+          
+          <form className={styles.searchForm} onSubmit={handleSearch}>
+            <div className={styles.searchInputWrapper}>
+              <FaSearch className={styles.searchIcon} />
+              <input
+                type="text"
+                placeholder="Search posts, topics, or subreddits..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className={styles.searchInput}
+              />
             </div>
-
+            <button type="submit" className={styles.searchButton}>Search</button>
+          </form>
+        </div>
+        
+        <div className={styles.controlsBar}>
+          <div className={styles.tabs}>
+            <button 
+              className={`${styles.tabButton} ${activeTab === 'posts' ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab('posts')}
+            >
+              <BsCardText />
+              <span>Posts</span>
+            </button>
+            <button 
+              className={`${styles.tabButton} ${activeTab === 'topics' ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab('topics')}
+            >
+              <IoMdTrendingUp />
+              <span>Trending Topics</span>
+            </button>
+            <button 
+              className={`${styles.tabButton} ${activeTab === 'subreddits' ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab('subreddits')}
+            >
+              <FaRedditAlien />
+              <span>Subreddits</span>
+            </button>
+            <button 
+              className={`${styles.tabButton} ${activeTab === 'analytics' ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab('analytics')}
+            >
+              <FaChartLine />
+              <span>Analytics</span>
+            </button>
+          </div>
+          
+          <div className={styles.filters}>
+            <div className={styles.filterGroup}>
+              <label>Sort:</label>
+              <select 
+                value={sortMethod} 
+                onChange={(e) => setSortMethod(e.target.value)}
+                className={styles.filterSelect}
+              >
+                <option value="relevance">Relevance</option>
+                <option value="date">Date</option>
+                <option value="upvotes">Upvotes</option>
+                <option value="comments">Comments</option>
+              </select>
+            </div>
+            
+            <div className={styles.filterGroup}>
+              <label>Time:</label>
+              <select 
+                value={timeRange} 
+                onChange={(e) => setTimeRange(e.target.value)}
+                className={styles.filterSelect}
+              >
+                <option value="day">Past 24 Hours</option>
+                <option value="week">Past Week</option>
+                <option value="month">Past Month</option>
+                <option value="year">Past Year</option>
+                <option value="all">All Time</option>
+              </select>
+            </div>
+            
+            <button className={styles.filterButton}>
+              <FaFilter />
+              <span>More Filters</span>
+            </button>
+          </div>
+        </div>
+        
+        {activeTab === 'posts' && (
+          <div className={styles.postsContainer}>
             {posts.map(post => (
               <div key={post.id} className={styles.postCard}>
                 <div className={styles.postHeader}>
-                  <div className={styles.postInfo}>
-                    <div className={styles.postAvatar}>
-                      {post.author.charAt(0)}
-                    </div>
-                    <div className={styles.postAuthor}>
-                      <span className={styles.authorName}>{post.author}</span>
-                      <div className={styles.postMeta}>
-                        <span className={styles.postSubreddit}>{post.subreddit}</span>
-                        <span>•</span>
-                        <span>{post.timePosted}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className={styles.postActions}>
-                    <button className={styles.actionButton}>
-                      <FaBookmark />
-                    </button>
-                    <button className={styles.actionButton}>
-                      <FaEllipsisH />
-                    </button>
+                  <div className={styles.postSubreddit}>{post.subreddit}</div>
+                  <div className={styles.postTime}>
+                    <FaRegClock />
+                    <span>{post.timePosted}</span>
                   </div>
                 </div>
-
-                <div className={styles.postContent}>
-                  <h2 className={styles.postTitle}>{post.title}</h2>
-                  <p className={styles.postText}>{post.text}</p>
-                  {post.image && (
-                    <img 
-                      src={post.image} 
-                      alt="Post content" 
-                      className={styles.postImage} 
-                    />
-                  )}
-                  {post.tags && (
-                    <div className={styles.postTags}>
-                      {post.tags.map((tag, index) => (
-                        <span key={index} className={styles.postTag}>{tag}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
+                
+                <h3 className={styles.postTitle}>{post.title}</h3>
+                <p className={styles.postSnippet}>{post.snippet}</p>
+                
                 <div className={styles.postFooter}>
-                  <div className={styles.voteSection}>
-                    <button 
-                      className={`${styles.voteButton} ${votedPosts[post.id] === 'up' ? styles.upvoteActive : ''}`}
-                      onClick={() => handleVote(post.id, 'up')}
-                    >
-                      <FaArrowUp />
-                    </button>
-                    <span className={styles.voteCount}>
-                      {post.upvotes + (votedPosts[post.id] === 'up' ? 1 : 0) - (votedPosts[post.id] === 'down' ? 1 : 0)}
-                    </span>
-                    <button 
-                      className={`${styles.voteButton} ${votedPosts[post.id] === 'down' ? styles.downvoteActive : ''}`}
-                      onClick={() => handleVote(post.id, 'down')}
-                    >
-                      <FaArrowDown />
+                  <div className={styles.postStats}>
+                    <div className={styles.postStat}>
+                      <FaFire />
+                      <span>{post.upvotes} upvotes</span>
+                    </div>
+                    <div className={styles.postStat}>
+                      <BsCardText />
+                      <span>{post.comments} comments</span>
+                    </div>
+                    <div className={`${styles.postSentiment} ${styles[post.sentiment]}`}>
+                      {post.sentiment}
+                    </div>
+                  </div>
+                  
+                  <div className={styles.postActions}>
+                    <button className={styles.postAction}>
+                      <BsBookmark />
+                      <span>Save</span>
                     </button>
                   </div>
-                  <div className={styles.commentSection}>
-                    <button className={styles.voteButton}>
-                      <FaCommentAlt />
-                    </button>
-                    <span className={styles.commentCount}>{post.comments} Comments</span>
-                  </div>
-                  <button className={styles.shareButton}>
-                    <FaShare />
-                    <span>Share</span>
-                  </button>
                 </div>
               </div>
             ))}
-
-            <div className={styles.paginationSection}>
-              <button 
-                className={styles.paginationButton}
-                onClick={() => handlePageChange(activePage - 1)}
-                disabled={activePage === 1}
-              >
-                &lt;
-              </button>
-              {[1, 2, 3, 4, 5].map(page => (
-                <button 
-                  key={page} 
-                  className={`${styles.paginationButton} ${activePage === page ? styles.paginationButtonActive : ''}`}
-                  onClick={() => handlePageChange(page)}
-                >
-                  {page}
-                </button>
+            
+            <div className={styles.loadMore}>
+              <button className={styles.loadMoreButton}>Load more posts</button>
+            </div>
+          </div>
+        )}
+        
+        {activeTab === 'topics' && (
+          <div className={styles.topicsContainer}>
+            <div className={styles.topicsHeader}>
+              <h2>Trending Topics</h2>
+              <div className={styles.topicsTimeSelector}>
+                <BsCalendar3 />
+                <select className={styles.filterSelect}>
+                  <option value="day">Today</option>
+                  <option value="week">This week</option>
+                  <option value="month" selected>This month</option>
+                </select>
+              </div>
+            </div>
+            
+            <div className={styles.topicsTable}>
+              <div className={styles.topicsTableHeader}>
+                <div className={styles.topicColumn}>Topic</div>
+                <div className={styles.mentionsColumn}>Mentions</div>
+                <div className={styles.sentimentColumn}>Sentiment</div>
+                <div className={styles.changeColumn}>Change</div>
+                <div className={styles.actionsColumn}>Actions</div>
+              </div>
+              
+              {trendingTopics.map(topic => (
+                <div key={topic.id} className={styles.topicRow}>
+                  <div className={styles.topicColumn}>{topic.topic}</div>
+                  <div className={styles.mentionsColumn}>{topic.mentions}</div>
+                  <div className={styles.sentimentColumn}>
+                    <span className={`${styles.sentimentBadge} ${styles[topic.sentiment]}`}>
+                      {topic.sentiment}
+                    </span>
+                  </div>
+                  <div className={styles.changeColumn}>{topic.change}</div>
+                  <div className={styles.actionsColumn}>
+                    <button className={styles.topicViewButton}>View Posts</button>
+                  </div>
+                </div>
               ))}
-              <button 
-                className={styles.paginationButton}
-                onClick={() => handlePageChange(activePage + 1)}
-                disabled={activePage === 5}
-              >
-                &gt;
-              </button>
             </div>
           </div>
-
-          <div className={styles.sidebar}>
-            <div className={styles.sidebarCard}>
-              <div className={styles.sidebarHeader}>
-                <h3 className={styles.sidebarTitle}>Trending Today</h3>
-              </div>
-              <div className={styles.sidebarContent}>
-                <div className={styles.trendingTopics}>
-                  {trendingTopics.map(topic => (
-                    <div key={topic.id} className={styles.topicItem}>
-                      <span className={styles.topicNumber}>{topic.id}</span>
-                      <div className={styles.topicDetails}>
-                        <span className={styles.topicName}>{topic.name}</span>
-                        <span className={styles.topicStats}>{topic.stats}</span>
+        )}
+        
+        {activeTab === 'subreddits' && (
+          <div className={styles.subredditsContainer}>
+            <div className={styles.subredditsGrid}>
+              {subreddits.map(subreddit => (
+                <div key={subreddit.id} className={styles.subredditCard}>
+                  <div className={styles.subredditIcon}>
+                    <FaRedditAlien />
+                  </div>
+                  <div className={styles.subredditInfo}>
+                    <h3 className={styles.subredditName}>{subreddit.name}</h3>
+                    <div className={styles.subredditStats}>
+                      <div className={styles.subredditStat}>
+                        <span className={styles.statLabel}>Members:</span>
+                        <span className={styles.statValue}>{subreddit.members}</span>
+                      </div>
+                      <div className={styles.subredditStat}>
+                        <span className={styles.statLabel}>Posts:</span>
+                        <span className={styles.statValue}>{subreddit.relevantPosts}</span>
+                      </div>
+                      <div className={styles.subredditStat}>
+                        <span className={styles.statLabel}>Sentiment:</span>
+                        <span className={`${styles.sentimentBadge} ${styles[subreddit.sentiment]}`}>
+                          {subreddit.sentiment}
+                        </span>
                       </div>
                     </div>
-                  ))}
+                  </div>
+                  <div className={styles.subredditActions}>
+                    <button className={styles.subredditButton}>View Posts</button>
+                    <button className={styles.subredditButton}>Track</button>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div className={styles.sidebarCard}>
-              <div className={styles.sidebarHeader}>
-                <h3 className={styles.sidebarTitle}>Top Gaming Communities</h3>
-              </div>
-              <div className={styles.sidebarContent}>
-                <div className={styles.subreddits}>
-                  {subreddits.map(subreddit => (
-                    <div key={subreddit.id} className={styles.subredditItem}>
-                      <div className={styles.subredditIcon}>
-                        {subreddit.name.charAt(3)}
-                      </div>
-                      <div className={styles.subredditInfo}>
-                        <span className={styles.subredditName}>{subreddit.name}</span>
-                        <span className={styles.subredditMembers}>{subreddit.members}</span>
-                      </div>
-                      <button 
-                        className={styles.joinButton}
-                        onClick={() => handleJoinSubreddit(subreddit.id)}
-                      >
-                        {subreddit.joined ? 'Joined' : 'Join'}
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
+        )}
+        
+        {activeTab === 'analytics' && (
+          <div className={styles.analyticsPlaceholder}>
+            <div className={styles.placeholderIcon}>
+              <FaChartLine size={48} />
+            </div>
+            <h2>Reddit Analytics</h2>
+            <p>This section will display advanced sentiment analysis, trend visualization, and engagement metrics.</p>
+          </div>
+        )}
+      </main>
     </div>
   );
 };

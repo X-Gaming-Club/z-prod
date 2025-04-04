@@ -1,357 +1,663 @@
 .pageContainer {
-    display: flex;
-    height: 100vh;
-    width: 100%;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: 64px;
+  padding: 24px;
+  background-color: var(--main-bg);
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.titleSection {
+  flex: 1;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--primary-color);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titleIcon {
+  color: var(--primary-color);
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.searchBox {
+  position: relative;
+  width: 300px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px 12px 10px 36px;
+  border-radius: var(--btn-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: all var(--animation-speed) ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(138, 107, 74, 0.1);
+}
+
+.tabsContainer {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tabButton {
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 500;
+  transition: all var(--animation-speed) ease;
+  cursor: pointer;
+}
+
+.tabButton:hover {
+  color: var(--text-primary);
+}
+
+.activeTab {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* Overview Tab */
+.overviewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.metricsCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.metricCard {
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: all var(--animation-speed) ease;
+}
+
+.metricCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.metricHeader {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.metricValue {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.metricSubtext {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.metricIcon {
+  color: var(--primary-color);
+  font-size: 18px;
+}
+
+.starRating {
+  display: flex;
+  gap: 2px;
+}
+
+.starIcon {
+  color: #FFC107;
+}
+
+.insightSection {
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.insightCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 16px;
+}
+
+.insightCard {
+  background-color: var(--hover-color);
+  border-radius: var(--card-radius);
+  padding: 16px;
+}
+
+.insightHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--primary-color);
+}
+
+.insightHeader h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.insightContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trendIndicator {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.issueTag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.chartPlaceholder {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-light);
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-color);
+}
+
+.chartPlaceholder p {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+/* Reviews Tab */
+.reviewsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reviewsControls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.filterButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.filterButton {
+  padding: 8px 16px;
+  border-radius: var(--btn-radius);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 14px;
+  transition: all var(--animation-speed) ease;
+  cursor: pointer;
+}
+
+.filterButton:hover, .sortButton:hover {
+  background-color: var(--hover-color);
+  border-color: var(--primary-light);
+}
+
+.filterButton.active {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border-color: var(--primary-color);
+}
+
+.sortButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--btn-radius);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 14px;
+  transition: all var(--animation-speed) ease;
+  cursor: pointer;
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reviewCard {
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.reviewerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reviewerName {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.reviewDate {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.reviewContent {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  max-height: 80px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.reviewContent.expanded {
+  max-height: 800px;
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  color: var(--primary-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.reviewFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.reviewMeta {
+  display: flex;
+  gap: 12px;
+}
+
+.deviceInfo, .versionInfo {
+  color: var(--text-light);
+}
+
+.sentimentTag {
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+.helpfulCount {
+  color: var(--text-light);
+}
+
+/* Issues Tab */
+.issuesContent {
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.issueHeader {
+  margin-bottom: 24px;
+}
+
+.issueHeader h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.issueHeader p {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.issuesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.issueCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: var(--hover-color);
+  border-radius: var(--card-radius);
+  border-left: 4px solid var(--border-color);
+}
+
+.issueCard.high {
+  border-left-color: #F44336;
+}
+
+.issueCard.medium {
+  border-left-color: #FF9800;
+}
+
+.issueCard.low {
+  border-left-color: #4CAF50;
+}
+
+.issueInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.issueSeverity {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.high {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #F44336;
+}
+
+.medium {
+  background-color: rgba(255, 152, 0, 0.1);
+  color: #FF9800;
+}
+
+.low {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+}
+
+.issueTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.issueStats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.issueCount {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.issueChange {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.positive {
+  color: #4CAF50;
+}
+
+.negative {
+  color: #F44336;
+}
+
+.mixed {
+  color: #FF9800;
+}
+
+.viewReviewsButton {
+  padding: 6px 12px;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border: none;
+  border-radius: var(--btn-radius);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--animation-speed) ease;
+}
+
+.viewReviewsButton:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Competitors Tab */
+.competitorsContent {
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.competitorTable {
+  width: 100%;
+}
+
+.competitorHeader {
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr 2fr 1fr;
+  background-color: var(--hover-color);
+  padding: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.yourAppRow, .competitorRow {
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr 2fr 1fr;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  align-items: center;
+}
+
+.yourAppRow {
+  background-color: rgba(138, 107, 74, 0.05);
+  font-weight: 500;
+}
+
+.competitorRow:last-child {
+  border-bottom: none;
+}
+
+.competitorRow:hover {
+  background-color: var(--hover-color);
+}
+
+.compRatingCol {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.compareButton {
+  padding: 6px 12px;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border: none;
+  border-radius: var(--btn-radius);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--animation-speed) ease;
+}
+
+.compareButton:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .insightCards {
+    grid-template-columns: 1fr;
   }
   
-  .container {
-    flex: 1;
-    margin-left: 64px;
-    padding: 24px;
-    background-color: var(--main-bg);
-    overflow-y: auto;
+  .metricsCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    margin-left: 56px;
+    padding: 16px;
   }
   
   .header {
-    margin-bottom: 24px;
-  }
-  
-  .title {
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--primary-color);
-    margin-bottom: 8px;
-  }
-  
-  .subtitle {
-    font-size: 16px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-  
-  .searchSection {
-    margin-bottom: 24px;
-  }
-  
-  .searchBar {
-    background-color: var(--input-bg);
-    border-radius: var(--card-radius);
-    box-shadow: var(--shadow-sm);
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    border: 1px solid var(--border-color);
-    transition: all var(--animation-speed) ease;
-  }
-  
-  .searchBar:focus-within {
-    border-color: var(--primary-light);
-    box-shadow: 0 0 0 3px rgba(138, 107, 74, 0.1);
-  }
-  
-  .searchBar input {
-    flex: 1;
-    border: none;
-    padding: 8px 0;
-    font-size: 16px;
-    background-color: transparent;
-  }
-  
-  .searchButton {
-    color: white;
-    background-color: var(--primary-color);
-    padding: 8px 16px;
-    border-radius: var(--btn-radius);
-    transition: all var(--animation-speed) ease;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .searchButton:hover {
-    background-color: var(--primary-dark);
-  }
-  
-  .content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
-  }
-  
-  .gameCard {
-    background-color: var(--card-bg);
-    border-radius: var(--card-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: all var(--animation-speed) ease;
-    display: flex;
     flex-direction: column;
-    height: 100%;
-  }
-  
-  .gameCard:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-  }
-  
-  .gameImageContainer {
-    height: 180px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .gameImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background-color: var(--primary-light);
-  }
-  
-  .gameDetails {
-    padding: 16px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .gameHeader {
-    display: flex;
-    justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 12px;
-  }
-  
-  .gameInfo h3 {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 4px;
-    color: var(--text-primary);
-  }
-  
-  .gameCompany {
-    font-size: 14px;
-    color: var(--text-secondary);
-  }
-  
-  .gameRating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 8px;
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: 4px;
-    font-weight: 500;
-  }
-  
-  .gameTags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-  }
-  
-  .gameTag {
-    padding: 4px 8px;
-    background-color: var(--hover-color);
-    border-radius: 4px;
-    font-size: 12px;
-    color: var(--text-secondary);
-  }
-  
-  .gameDescription {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-  
-  .gameFooter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-    padding-top: 12px;
-    border-top: 1px solid var(--border-color);
-  }
-  
-  .gamePrice {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--primary-color);
-  }
-  
-  .gameButton {
-    padding: 8px 16px;
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: var(--btn-radius);
-    font-size: 14px;
-    transition: all var(--animation-speed) ease;
-  }
-  
-  .gameButton:hover {
-    background-color: var(--primary-dark);
-  }
-  
-  .filtersSection {
-    margin-bottom: 24px;
-    padding: 16px;
-    background-color: var(--card-bg);
-    border-radius: var(--card-radius);
-    box-shadow: var(--shadow-sm);
-  }
-  
-  .filtersHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .filtersTitle {
-    font-size: 18px;
-    font-weight: 500;
-  }
-  
-  .clearFiltersButton {
-    font-size: 14px;
-    color: var(--primary-color);
-    transition: color var(--animation-speed) ease;
-  }
-  
-  .clearFiltersButton:hover {
-    color: var(--primary-dark);
-  }
-  
-  .filterGroups {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 16px;
   }
   
-  .filterGroup {
-    margin-bottom: 16px;
+  .searchBox {
+    width: 100%;
   }
   
-  .filterGroupTitle {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 8px;
+  .metricsCards {
+    grid-template-columns: 1fr;
   }
   
-  .filterOptions {
-    display: flex;
+  .tabsContainer {
+    overflow-x: auto;
+    padding-bottom: 8px;
+    width: 100%;
+  }
+  
+  .tabButton {
+    white-space: nowrap;
+  }
+  
+  .competitorHeader,
+  .yourAppRow,
+  .competitorRow {
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    font-size: 13px;
+    padding: 12px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContent {
+    margin-left: 50px;
+    padding: 12px;
+  }
+  
+  .title {
+    font-size: 22px;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+  }
+  
+  .reviewsControls {
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
   }
   
-  .filterOption {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: var(--text-secondary);
+  .filterButtons {
+    width: 100%;
+    justify-content: space-between;
   }
   
-  .filterCheckbox {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
+  .competitorHeader,
+  .yourAppRow,
+  .competitorRow {
+    grid-template-columns: 2fr 1fr 1fr;
   }
   
-  .paginationSection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-top: 32px;
+  .compChangeCol,
+  .compDownloadsCol {
+    display: none;
   }
-  
-  .paginationButton {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: var(--btn-radius);
-    font-size: 14px;
-    color: var(--text-secondary);
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    transition: all var(--animation-speed) ease;
-  }
-  
-  .paginationButton:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-  }
-  
-  .paginationButtonActive {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-  }
-  
-  .paginationButtonActive:hover {
-    color: white;
-  }
-  
-  /* Responsive design */
-  @media (max-width: 1024px) {
-    .content {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .container {
-      margin-left: 56px;
-      padding: 16px;
-    }
-    
-    .title {
-      font-size: 24px;
-    }
-    
-    .content {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-    }
-    
-    .gameHeader {
-      flex-direction: column;
-      gap: 8px;
-    }
-    
-    .gameRating {
-      align-self: flex-start;
-    }
-    
-    .filterGroups {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .container {
-      margin-left: 50px;
-      padding: 12px;
-    }
-    
-    .title {
-      font-size: 20px;
-    }
-    
-    .content {
-      grid-template-columns: 1fr;
-    }
-    
-    .searchButton {
-      padding: 6px 12px;
-      font-size: 12px;
-    }
-  }
-  
+}
