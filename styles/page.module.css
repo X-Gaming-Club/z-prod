@@ -2,7 +2,6 @@
   display: flex;
   height: 100vh;
   width: 100%;
-  overflow: hidden;
 }
 
 .mainContent {
@@ -63,7 +62,7 @@
   border-radius: 24px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -103,13 +102,12 @@
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   font-size: 14px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .actionButton:hover {
   background-color: var(--hover-color);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
 .actionButton span {
@@ -136,7 +134,7 @@
   text-align: left;
   font-size: 14px;
   color: var(--text-primary);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   box-shadow: var(--shadow-sm);
   line-height: 1.5;
 }
@@ -145,7 +143,6 @@
   box-shadow: var(--shadow-md);
   border-color: var(--primary-light);
   transform: translateY(-3px);
-  background-color: #f9f6f2;
 }
 
 /* Chat styling */
@@ -157,21 +154,6 @@
   flex-direction: column;
   gap: 24px;
   padding: 0 12px 90px 0;
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-light) transparent;
-}
-
-.chatContainer::-webkit-scrollbar {
-  width: 6px;
-}
-
-.chatContainer::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.chatContainer::-webkit-scrollbar-thumb {
-  background-color: var(--primary-light);
-  border-radius: 20px;
 }
 
 .message {
@@ -206,7 +188,7 @@
   padding: 16px;
   box-shadow: var(--shadow-sm);
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .messageContent:hover {
@@ -265,7 +247,6 @@
   z-index: 10;
   animation: fadeInUp 0.5s forwards;
 }
-
 .inputControlsWrapper {
   display: flex;
   align-items: center;
@@ -282,13 +263,6 @@
   display: flex;
   align-items: center;
   padding-right: 12px;
-  transition: all 0.3s ease;
-}
-
-.inputWrapper:focus-within {
-  border-color: var(--primary-light);
-  box-shadow: 0 0 0 3px rgba(138, 107, 74, 0.1);
-  transform: translateY(-2px);
 }
 
 .chatInput {
@@ -313,7 +287,7 @@
   border-radius: 50%;
   background-color: transparent;
   color: var(--text-secondary);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   border: none;
   cursor: pointer;
 }
@@ -321,7 +295,6 @@
 .uploadButton:hover {
   background-color: var(--hover-color);
   color: var(--primary-color);
-  transform: scale(1.1);
 }
 
 .sendButton {
@@ -331,23 +304,21 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: #8a6b4a; /* Brown color to match theme */
+  background-color: var(--primary-color);
   color: white;
   font-size: 18px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   border: none;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
 }
 
 .sendButton:hover:not(:disabled) {
-  background-color: #735a40; /* Darker brown on hover */
+  background-color: var(--primary-dark);
   transform: scale(1.05);
-  box-shadow: var(--shadow-md);
 }
 
 .sendButtonDisabled {
-  background-color: #c5bebd; /* Lighter color when disabled */
+  background-color: var(--text-light);
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -396,12 +367,6 @@
 }
 
 /* Responsive design */
-@media (max-width: 1024px) {
-  .centerContent {
-    padding-top: 60px;
-  }
-}
-
 @media (max-width: 768px) {
   .mainContent {
     margin-left: 56px;
