@@ -270,13 +270,6 @@ const Page = () => {
                     </button>
                   </div>
                 </div>
-                
-                {/* <div className={styles.contextFooter}>
-                  <button className={styles.contextButton}>
-                    <span className={styles.contextIcon}>📊</span>
-                    Kenley context
-                  </button>
-                </div> */}
               </div>
             </>
           )}
