@@ -9,6 +9,12 @@
   display: flex;
   justify-content: center;
   padding: 0 24px;
+  margin-left: 60px;
+  transition: background-color 0.6s ease;
+}
+
+.chatActive {
+  background-color: var(--main-bg);
 }
 
 .centerContent {
@@ -17,107 +23,112 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 120px;
+  padding-top: 30px;
+  transition: padding-top 0.5s ease;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 40px;
+/* Welcome Screen (First Query) */
+.welcomeContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 0 20px;
+  animation: fadeIn 0.8s forwards;
 }
 
-.title {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-
-.subtitle {
+.welcomeHeading {
   font-size: 32px;
-  font-weight: 400;
+  font-weight: 600;
+  margin-bottom: 40px;
   color: var(--text-primary);
 }
 
 .searchContainer {
   width: 100%;
+  max-width: 600px;
   margin-bottom: 32px;
+  animation: slideUp 0.6s forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .inputWrapper {
   width: 100%;
   background-color: var(--input-bg);
-  border-radius: 12px;
+  border-radius: 24px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(138, 107, 74, 0.1);
+  transform: translateY(-2px);
 }
 
 .searchInput {
   width: 100%;
-  padding: 16px;
+  padding: 16px 24px;
   border: none;
   font-size: 16px;
+  background-color: transparent;
+  outline: none;
 }
 
-.inputOptions {
+.actionButtons {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
-  border-top: 1px solid var(--border-color);
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-.contextSelector, .defaultSelector {
+.actionButton {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
   font-size: 14px;
-  color: var(--text-secondary);
-  padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.contextSelector:hover, .defaultSelector:hover {
+.actionButton:hover {
   background-color: var(--hover-color);
+  transform: translateY(-1px);
 }
 
-.contextIcon {
-  font-size: 16px;
+.actionButton span {
+  font-weight: 500;
 }
 
-.dropdownIcon {
-  font-size: 8px;
-}
-
-.divider {
-  height: 24px;
-  width: 1px;
-  background-color: var(--border-color);
-  margin: 0 12px;
-}
-
-.sendButton {
-  margin-left: auto;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.promptsContainer {
+.promptsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+  animation: fadeIn 0.8s forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
 }
 
 .promptButton {
   padding: 16px;
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   text-align: left;
@@ -125,20 +136,300 @@
   color: var(--text-primary);
   transition: all 0.2s ease;
   box-shadow: var(--shadow-sm);
+  line-height: 1.5;
 }
 
 .promptButton:hover {
   box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
+  border-color: var(--primary-light);
+  transform: translateY(-3px);
+}
+
+/* Chat styling */
+.chatContainer {
+  width: 100%;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 12px 90px 0;
+}
+
+.message {
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fadeInMessage {
+  animation: fadeInUp 0.5s forwards;
+}
+
+.messageAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--primary-dark);
+  font-size: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.messageContent {
+  flex: 1;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.messageContent:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.messageText {
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.messageTimestamp {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+.userMessage .messageContent {
+  background-color: var(--primary-light);
+  color: var(--text-primary);
+}
+
+.thinkingIndicator {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+}
+
+.thinkingDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  opacity: 0.7;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.thinkingDot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.thinkingDot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.inputContainer {
+  position: fixed;
+  bottom: 24px;
+  width: 100%;
+  max-width: 768px;
+  padding: 0 24px;
+  z-index: 10;
+  animation: fadeInUp 0.5s forwards;
+}
+.inputControlsWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.inputWrapper {
+  flex: 1;
+  background-color: var(--input-bg);
+  border-radius: 24px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+}
+
+.chatInput {
+  flex: 1;
+  padding: 14px 16px;
+  border: none;
+  font-size: 15px;
+  background-color: transparent;
+  resize: none;
+  max-height: 120px;
+  font-family: inherit;
+  outline: none;
+  overflow: auto;
+}
+
+.uploadButton {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.uploadButton:hover {
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+}
+
+.sendButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 18px;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.sendButton:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+.sendButtonDisabled {
+  background-color: var(--text-light);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* .contextFooter {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+} */
+
+/* .contextButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.contextButton:hover {
+  background-color: var(--hover-color);
+  border-color: var(--primary-light);
+} */
+
+/* .contextIcon {
+  font-size: 16px;
+} */
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .centerContent {
-    padding-top: 80px;
+  .mainContent {
+    margin-left: 56px;
+    padding: 0 16px;
   }
   
-  .promptsContainer {
+  .welcomeHeading {
+    font-size: 28px;
+  }
+  
+  .promptsGrid {
     grid-template-columns: 1fr;
+  }
+  
+  .inputContainer {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContent {
+    margin-left: 50px;
+    padding: 0 12px;
+  }
+  
+  .welcomeHeading {
+    font-size: 24px;
+  }
+  
+  .actionButtons {
+    flex-wrap: wrap;
+  }
+  
+  .inputContainer {
+    padding: 0 12px;
+    bottom: 16px;
   }
 }

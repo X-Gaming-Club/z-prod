@@ -1,7 +1,7 @@
 .sidebar {
   height: 100vh;
-  width: 64px;
-  background-color: #111827;
+  width: 60px;
+  background-color: var(--sidebar-bg);
   border-right: 1px solid rgba(229, 231, 235, 0.1);
   display: flex;
   flex-direction: column;
@@ -11,17 +11,20 @@
   left: 0;
   top: 0;
   z-index: 100;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
   margin-bottom: 32px;
-  padding: 6px;
+  padding: 8px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease;
+  width: 40px;
+  height: 40px;
 }
 
 .logo:hover {
@@ -34,16 +37,15 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
+  height: calc(100% - 72px);
   width: 100%;
-  padding-bottom: 16px;
 }
 
 .topIcons, .bottomIcons {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   width: 100%;
 }
 
@@ -54,8 +56,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  font-size: 20px;
-  color: #9ca3af;
+  color: var(--icon-inactive);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -69,12 +70,12 @@
 }
 
 .iconButton.active {
-  color: #4f46e5;
-  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--primary-light);
+  background-color: rgba(138, 107, 74, 0.2);
 }
 
 .iconButton.active:hover {
-  background-color: rgba(79, 70, 229, 0.15);
+  background-color: rgba(138, 107, 74, 0.3);
 }
 
 .avatarButton {
@@ -84,24 +85,25 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: #dbeafe;
-  color: #1e40af;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
   font-weight: 500;
-  border: 2px solid #1e40af;
+  border: 2px solid var(--primary-dark);
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
+  font-size: 16px;
 }
 
 .avatarButton:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
+  box-shadow: 0 0 8px rgba(138, 107, 74, 0.4);
 }
 
 .tooltip {
   position: absolute;
   left: 54px;
-  background-color: #1f2937;
+  background-color: var(--sidebar-bg);
   color: #fff;
   padding: 6px 10px;
   border-radius: 4px;
@@ -122,7 +124,6 @@
   }
 }
 
-
 /* For responsive design */
 @media (max-width: 768px) {
   .sidebar {
@@ -132,7 +133,29 @@
   .iconButton, .avatarButton {
     width: 36px;
     height: 36px;
-    font-size: 18px;
+    font-size: 16px;
   }
   
+  .logo {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 50px;
+  }
+  
+  .iconButton, .avatarButton {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .logo {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 24px;
+  }
 }

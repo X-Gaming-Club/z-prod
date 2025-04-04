@@ -22,8 +22,8 @@ const Sidebar = () => {
       setActiveIcon('home');
     } else if (pathname === '/Games') {
       setActiveIcon('games');
-    } else if (pathname === '/redredCommunity') {
-      setActiveIcon('redCommunity');
+    } else if (pathname === '/ReddCommunity') {
+      setActiveIcon('ReddCommunity');
     } else if (pathname === '/Analytics') {
       setActiveIcon('analytics');
     } else if (pathname === '/search') {
@@ -33,15 +33,19 @@ const Sidebar = () => {
 
   // Menu items with their corresponding routes
   const menuItems = [
-    { id: 'search', icon: <IoIosSearch />, name: 'Search', route: '/search' },
-    { id: 'home', icon: <RiHome3Fill />, name: 'Home', route: '/' },
-    { id: 'games', icon: <FaGamepad />, name: 'Games', route: '/Games' },
-    { id: 'redCommunity', icon: <FaRedditAlien />, name: 'redCommunity', route: '/redCommunity' },
-    { id: 'analytics', icon: <TbAnalyze />, name: 'Analytics', route: '/Analytics' },
+    { id: 'search', icon: <IoIosSearch size={22} />, name: 'Search', route: '/' },
+    { id: 'home', icon: <RiHome3Fill size={22} />, name: 'Home', route: '/' },
+    { id: 'games', icon: <FaGamepad size={20} />, name: 'Games', route: '/Games' },
+    { id: 'ReddCommunity', icon: <FaRedditAlien size={22} />, name: 'ReddCommunity', route: '/ReddCommunity' },
+    { id: 'analytics', icon: <TbAnalyze size={22} />, name: 'Analytics', route: '/Analytics' },
   ];
 
   // Handle icon click with navigation
   const handleIconClick = (itemId, route) => {
+    if (itemId === 'search') {
+      console.log('Search clicked');
+      return;
+    }
     setActiveIcon(itemId);
     router.push(route);
   };
@@ -50,10 +54,10 @@ const Sidebar = () => {
     <div className={styles.sidebar}>
       <div className={styles.logo}>
         <Image
-          src="/logo-XG.svg"
-          alt="GameIntel Logo"
-          width={40}
-          height={40}
+          src="/X_logo.svg"
+          alt="XGaming Logo"
+          width={32}
+          height={32}
           priority
         />
       </div>
