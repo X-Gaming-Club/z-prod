@@ -1,0 +1,213 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .mainContent {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 24px;
+    margin-left: 60px;
+    transition: background-color 0.6s ease;
+    background-color: var(--main-bg);
+  }
+  
+  .chatActive {
+    background-color: var(--main-bg);
+  }
+  
+  .centerContent {
+    width: 100%;
+    max-width: 768px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    transition: padding-top 0.5s ease;
+    position: relative;
+  }
+  
+  /* Welcome Screen (First Query) */
+  .welcomeContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    padding: 0 20px;
+  }
+  
+  .welcomeHeading {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: var(--text-primary);
+  }
+  
+  .searchContainer {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .inputWrapper {
+    width: 100%;
+    background-color: var(--input-bg);
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--animation-speed) ease;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 8px 12px;
+  }
+  
+  .inputWrapper:focus-within {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(138, 107, 74, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .searchInput {
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    font-size: 16px;
+    background-color: transparent;
+    outline: none;
+    color: var(--text-primary);
+  }
+  
+  .searchInput::placeholder {
+    color: var(--text-light);
+  }
+  
+  .actionButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  .actionButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: all var(--animation-speed) ease;
+  }
+  
+  .actionButton:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-1px);
+    border-color: var(--primary-light);
+  }
+  
+  .actionButton span {
+    font-weight: 500;
+  }
+  
+  .promptsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+  }
+  
+  .promptButton {
+    padding: 16px;
+    border-radius: var(--card-radius);
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    text-align: left;
+    font-size: 14px;
+    color: var(--text-primary);
+    transition: all var(--animation-speed) ease;
+    box-shadow: var(--shadow-sm);
+    line-height: 1.5;
+  }
+  
+  .promptButton:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+    transform: translateY(-3px);
+    background-color: var(--hover-color);
+  }
+  
+  .sendButton {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--hover-color);
+    color: var(--text-light);
+    font-size: 16px;
+    transition: all var(--animation-speed) ease;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  
+  .sendButtonActive {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .sendButtonActive:hover {
+    background-color: var(--primary-dark);
+    color: white;
+  }
+  
+  .sendButtonDisabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .mainContent {
+      margin-left: 56px;
+      padding: 0 16px;
+    }
+    
+    .welcomeHeading {
+      font-size: 28px;
+    }
+    
+    .promptsGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .mainContent {
+      margin-left: 50px;
+      padding: 0 12px;
+    }
+    
+    .welcomeHeading {
+      font-size: 24px;
+    }
+    
+    .actionButtons {
+      flex-wrap: wrap;
+    }
+  }

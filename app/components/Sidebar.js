@@ -1,11 +1,11 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import { FaGamepad } from "react-icons/fa";
 import { RiHome3Fill } from "react-icons/ri";
 import { TbAnalyze } from "react-icons/tb";
-// import { IoIosSearch } from "react-icons/io";
 import { FaRedditAlien } from "react-icons/fa";
 import { CgInsights } from "react-icons/cg";
+import { BiLogOut } from "react-icons/bi";
 import styles from '../../styles/Sidebar.module.css';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
@@ -15,11 +15,12 @@ const Sidebar = () => {
   const pathname = usePathname();
   const [activeIcon, setActiveIcon] = useState('home');
   const [hoveredIcon, setHoveredIcon] = useState(null);
-
+  const [showLogout, setShowLogout] = useState(false);
+  
   // Update active icon based on current route when component mounts or route changes
   useEffect(() => {
     // Map paths to corresponding menu item IDs
-    if (pathname === '/') {
+    if (pathname === '/Homepage') {
       setActiveIcon('home');
     } else if (pathname === '/PlayStoreInsights') {
       setActiveIcon('PlayStoreInsights');
@@ -27,31 +28,37 @@ const Sidebar = () => {
       setActiveIcon('RedditResearch');
     } else if (pathname === '/CompAnalysis') {
       setActiveIcon('CompAnalysis');
-    // } else if (pathname === '/search') {
-    //   setActiveIcon('search');
     } else if (pathname === '/LiveopsInsights') {
-      setActiveIcon('search');
+      setActiveIcon('LiveopsInsights');
     }
   }, [pathname]);
-
+  
   // Menu items with their corresponding routes
   const menuItems = [
-    // { id: 'search', icon: <IoIosSearch size={22} />, name: 'Search', route: '/' },
-    { id: 'home', icon: <RiHome3Fill size={22} />, name: 'Home', route: '/' },
+    { id: 'home', icon: <RiHome3Fill size={22} />, name: 'Home', route: '/Homepage' },
     { id: 'CompAnalysis', icon: <TbAnalyze size={22} />, name: 'CompAnalysis', route: '/CompAnalysis' },
     { id: 'RedditResearch', icon: <FaRedditAlien size={22} />, name: 'RedditResearch', route: '/RedditResearch' },
     { id: 'PlayStoreInsights', icon: <FaGamepad size={20} />, name: 'PlayStoreInsights', route: '/PlayStoreInsights' },
     { id: 'LiveopsInsights', icon: <CgInsights size={20} />, name: 'LiveopsInsights', route: '/LiveopsInsights' },
   ];
-
-  // Handle icon click with navigation
+  
+  // Handle icon click with navigation - fixed to prevent flash of incorrect active state
   const handleIconClick = (itemId, route) => {
-    if (itemId === 'search') {
-      console.log('Search clicked');
-      return;
-    }
+    // First set the active icon immediately to prevent flickering
     setActiveIcon(itemId);
+    
+    // Then navigate to the route
     router.push(route);
+  };
+  
+  // Handle profile click - toggle logout button visibility
+  const handleProfileClick = () => {
+    setShowLogout(!showLogout);
+  };
+  
+  // Handle logout action
+  const handleLogout = () => {
+    router.push('/');
   };
 
   return (
@@ -83,16 +90,33 @@ const Sidebar = () => {
           ))}
         </div>
         <div className={styles.bottomIcons}>
-          <button
-            className={styles.avatarButton}
-            onMouseEnter={() => setHoveredIcon('profile')}
-            onMouseLeave={() => setHoveredIcon(null)}
-          >
-            <span>B</span>
-            {hoveredIcon === 'profile' && (
-              <span className={styles.tooltip}>Profile</span>
+          <div className={styles.profileContainer}>
+            <button
+              className={styles.avatarButton}
+              onClick={handleProfileClick}
+              onMouseEnter={() => setHoveredIcon('profile')}
+              onMouseLeave={() => setHoveredIcon(null)}
+            >
+              <span>B</span>
+              {hoveredIcon === 'profile' && !showLogout && (
+                <span className={styles.tooltip}>Profile</span>
+              )}
+            </button>
+            
+            {showLogout && (
+              <button 
+                className={styles.logoutButton}
+                onClick={handleLogout}
+                onMouseEnter={() => setHoveredIcon('logout')}
+                onMouseLeave={() => setHoveredIcon(null)}
+              >
+                <BiLogOut size={18} />
+                {hoveredIcon === 'logout' && (
+                  <span className={styles.tooltip}>Logout</span>
+                )}
+              </button>
             )}
-          </button>
+          </div>
         </div>
       </div>
     </div>
