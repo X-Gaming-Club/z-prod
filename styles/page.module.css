@@ -38,7 +38,7 @@
   justify-content: center;
   min-height: 70vh;
   padding: 0 20px;
-  animation: fadeIn 0.8s forwards;
+  /* Removed animation: fadeIn 0.8s forwards; - now handled by GSAP */
 }
 
 .welcomeHeading {
@@ -52,7 +52,7 @@
   width: 100%;
   max-width: 600px;
   margin-bottom: 32px;
-  animation: slideUp 0.6s forwards;
+  /* Removed animation: slideUp 0.6s forwards; - now handled by GSAP */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,9 +130,11 @@
   width: 100%;
   max-width: 600px;
   margin-top: 20px;
+  /* Removed animations - now handled by GSAP:
   animation: fadeIn 0.8s forwards;
   animation-delay: 0.3s;
   opacity: 0;
+  */
 }
 
 .promptButton {
@@ -186,7 +188,7 @@
   cursor: not-allowed;
 }
 
-/* Animations */
+/* Animations - Kept for fallback but no longer used directly on elements */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -237,3 +239,4 @@
     flex-wrap: wrap;
   }
 }
+

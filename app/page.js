@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useRef } from "react";
+// Added useEffect to the imports for GSAP animations
+import React, { useState, useRef, useEffect } from "react";
 import styles from "../styles/Page.module.css";
 import Sidebar from "./components/Sidebar";
 import { IoSend } from "react-icons/io5";
@@ -7,6 +8,8 @@ import { FaPlus } from "react-icons/fa";
 import { BsGlobe } from "react-icons/bs";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import ChatComponent from "./components/ChatComponent";
+// Added GSAP import
+import gsap from "gsap";
 
 const Page = () => {
   const [inputValue, setInputValue] = useState("");
@@ -14,13 +17,65 @@ const Page = () => {
   const [initialQuery, setInitialQuery] = useState("");
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
+  
+  // Added new refs for GSAP animations
+  const welcomeHeadingRef = useRef(null);
+  const searchContainerRef = useRef(null);
+  const promptsGridRef = useRef(null);
+  const promptButtonsRef = useRef([]);
 
-  // Focus input on load
+  // Original useEffect for input focus
   React.useEffect(() => {
     if (firstQuery) {
       inputRef.current?.focus();
     }
   }, [firstQuery]);
+  
+  // New useEffect for GSAP animations
+  useEffect(() => {
+    if (firstQuery) {
+      // Create a GSAP timeline for sequenced animations
+      const tl = gsap.timeline();
+      
+      // Animate welcome heading
+      tl.fromTo(
+        welcomeHeadingRef.current,
+        { opacity: 0, y: -30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
+      );
+      
+      // Animate search container
+      tl.fromTo(
+        searchContainerRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+        "-=0.4" // Start slightly before previous animation finishes
+      );
+      
+      // Animate prompts grid
+      tl.fromTo(
+        promptsGridRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5 },
+        "-=0.2"
+      );
+      
+      // Animate each prompt button with staggered effect
+      tl.fromTo(
+        promptButtonsRef.current,
+        { opacity: 0, y: 20, scale: 0.95 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          duration: 0.4, 
+          stagger: 0.1, // Each button starts 0.1s after the previous
+          ease: "back.out(1.2)" // Slight overshoot for a bouncy effect
+        },
+        "-=0.3"
+      );
+    }
+  }, [firstQuery]); // Run this effect when firstQuery changes, but primarily on mount
 
   const suggestedPrompts = [
     "Tell me about IT service providers in the cloud space",
@@ -77,9 +132,11 @@ const Page = () => {
         <div className={styles.centerContent}>
           {firstQuery ? (
             <div className={styles.welcomeContainer}>
-              <h1 className={styles.welcomeHeading}>What can I help with?</h1>
+              {/* Added ref to heading for GSAP animation */}
+              <h1 className={styles.welcomeHeading} ref={welcomeHeadingRef}>What can I help with?</h1>
 
-              <div className={styles.searchContainer}>
+              {/* Added ref to search container for GSAP animation */}
+              <div className={styles.searchContainer} ref={searchContainerRef}>
                 <div className={styles.inputWrapper}>
                   <input
                     ref={inputRef}
@@ -128,12 +185,15 @@ const Page = () => {
                 </div>
               </div>
 
-              <div className={styles.promptsGrid}>
+              {/* Added ref to prompts grid for GSAP animation */}
+              <div className={styles.promptsGrid} ref={promptsGridRef}>
                 {suggestedPrompts.map((prompt, index) => (
                   <button
                     key={index}
                     className={styles.promptButton}
                     onClick={() => handlePromptClick(prompt)}
+                    /* Added ref for each button for GSAP animation */
+                    ref={(el) => (promptButtonsRef.current[index] = el)}
                   >
                     {prompt}
                   </button>
