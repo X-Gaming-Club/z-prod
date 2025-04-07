@@ -2,14 +2,18 @@
 import React, { useState } from 'react';
 import styles from '../../styles/CompAnalysis.module.css';
 import Sidebar from '../components/Sidebar';
-import { FaChartLine, FaChartBar, FaFilter, FaDownload, FaSearch, FaTable } from 'react-icons/fa';
-import { BsCalendar3, BsGridFill, BsListUl } from 'react-icons/bs';
+import { FaChartLine, FaChartBar, FaFilter, FaDownload, FaSearch, FaTable, FaTimes } from 'react-icons/fa';
+import { BsCalendar3, BsGridFill, BsListUl, BsBuilding, BsFileEarmark } from 'react-icons/bs';
 import { IoMdRefresh } from 'react-icons/io';
+import { BiFilterAlt } from 'react-icons/bi';
 
 const CompAnalysis = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [viewMode, setViewMode] = useState('grid');
   const [timeRange, setTimeRange] = useState('last30days');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showFilterOptions, setShowFilterOptions] = useState(false);
+  const [selectedProject, setSelectedProject] = useState('all');
   
   // Dummy data for competitors
   const competitors = [
@@ -22,7 +26,8 @@ const CompAnalysis = () => {
       revenue: '$98M',
       growth: '+4.7%',
       rating: 4.7,
-      logo: '/api/placeholder/48/48'
+      logo: 'X_logo.svg',
+      projectId: 'horizon'
     },
     { 
       id: 2, 
@@ -33,7 +38,8 @@ const CompAnalysis = () => {
       revenue: '$85M',
       growth: '+3.2%',
       rating: 4.5,
-      logo: '/api/placeholder/48/48'
+      logo: 'X_logo.svg',
+      projectId: 'atlas'
     },
     { 
       id: 3, 
@@ -44,7 +50,8 @@ const CompAnalysis = () => {
       revenue: '$62M',
       growth: '+6.8%',
       rating: 4.8,
-      logo: '/api/placeholder/48/48'
+      logo: 'X_logo.svg',
+      projectId: 'aurora'
     },
     { 
       id: 4, 
@@ -55,8 +62,17 @@ const CompAnalysis = () => {
       revenue: '$45M',
       growth: '+1.5%',
       rating: 4.3,
-      logo: '/api/placeholder/48/48'
+      logo: 'X_logo.svg',
+      projectId: 'orion'
     }
+  ];
+  
+  // Projects data
+  const projects = [
+    { id: 'horizon', name: 'Project Horizon', code: '#2026' },
+    { id: 'atlas', name: 'Project Atlas', code: '#2994' },
+    { id: 'aurora', name: 'Project Aurora', code: '#2900' },
+    { id: 'orion', name: 'Project Orion', code: '#7815' },
   ];
   
   // Dummy data for market metrics
@@ -76,6 +92,34 @@ const CompAnalysis = () => {
     { feature: 'Cloud Saves', ourGame: 'Yes', competitor1: 'Yes', competitor2: 'No', competitor3: 'Yes' },
     { feature: 'Offline Mode', ourGame: 'Yes', competitor1: 'No', competitor2: 'Limited', competitor3: 'Yes' }
   ];
+
+  // Filter competitors based on search query and selected project
+  const filteredCompetitors = competitors.filter(comp => {
+    const matchesSearch = searchQuery.trim() === '' || 
+      comp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      comp.publisher.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      comp.category.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesProject = selectedProject === 'all' || comp.projectId === selectedProject;
+    
+    return matchesSearch && matchesProject;
+  });
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery('');
+  };
+
+  const handleProjectChange = (project) => {
+    setSelectedProject(project);
+  };
+
+  const toggleFilterOptions = () => {
+    setShowFilterOptions(!showFilterOptions);
+  };
 
   return (
     <div className={styles.pageContainer}>
@@ -113,6 +157,91 @@ const CompAnalysis = () => {
             </button>
           </div>
         </div>
+        
+        {/* New search section */}
+        <div className={styles.searchSection}>
+          <div className={styles.searchInputWrapper}>
+            <FaSearch className={styles.searchIcon} />
+            <input
+              type="text"
+              placeholder="Search competitors, publishers, or categories..."
+              className={styles.searchInput}
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+            {searchQuery && (
+              <button className={styles.clearButton} onClick={clearSearch}>
+                <FaTimes />
+              </button>
+            )}
+          </div>
+          
+          <button className={styles.filterButton} onClick={toggleFilterOptions}>
+            <BiFilterAlt />
+            <span>Filter</span>
+          </button>
+        </div>
+        
+        {/* Filter options */}
+        {showFilterOptions && (
+          <div className={styles.filterOptions}>
+            <div className={styles.filterGroup}>
+              <div className={styles.filterLabel}>
+                <BsCalendar3 />
+                <span>Date</span>
+              </div>
+              <select className={styles.filterSelect}>
+                <option value="all">All Dates</option>
+                <option value="recent">Recent</option>
+                <option value="last30">Last 30 Days</option>
+                <option value="last90">Last 90 Days</option>
+              </select>
+            </div>
+            
+            <div className={styles.filterGroup}>
+              <div className={styles.filterLabel}>
+                <BsBuilding />
+                <span>Source</span>
+              </div>
+              <select className={styles.filterSelect}>
+                <option value="all">All Sources</option>
+                <option value="internal">Internal Reports</option>
+                <option value="market">Market Research</option>
+                <option value="analyst">Analyst Reports</option>
+              </select>
+            </div>
+            
+            <div className={styles.filterGroup}>
+              <div className={styles.filterLabel}>
+                <BsFileEarmark />
+                <span>File Type</span>
+              </div>
+              <select className={styles.filterSelect}>
+                <option value="all">All Types</option>
+                <option value="reports">Reports</option>
+                <option value="presentations">Presentations</option>
+                <option value="spreadsheets">Spreadsheets</option>
+              </select>
+            </div>
+            
+            <div className={styles.filterGroup}>
+              <div className={styles.filterLabel}>
+                <BsBuilding />
+                <span>Project</span>
+              </div>
+              <select 
+                className={styles.filterSelect}
+                value={selectedProject}
+                onChange={(e) => handleProjectChange(e.target.value)}
+              >
+                <option value="all">All Projects</option>
+                {projects.map(project => (
+                  <option key={project.id} value={project.id}>{project.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
         
         <div className={styles.tabsContainer}>
           <div className={styles.tabs}>
@@ -160,6 +289,23 @@ const CompAnalysis = () => {
           )}
         </div>
         
+        {/* Show search results message if search is active */}
+        {searchQuery && (
+          <div className={styles.searchResults}>
+            <p>
+              Showing results for <strong>"{searchQuery}"</strong>
+              {selectedProject !== 'all' && (
+                <span> in {projects.find(p => p.id === selectedProject)?.name}</span>
+              )}
+              {filteredCompetitors.length === 0 ? (
+                <span className={styles.noResults}> - No results found</span>
+              ) : (
+                <span className={styles.resultCount}> - {filteredCompetitors.length} results</span>
+              )}
+            </p>
+          </div>
+        )}
+        
         {activeTab === 'overview' && (
           <div className={styles.overviewContent}>
             <div className={styles.metricsSection}>
@@ -176,100 +322,121 @@ const CompAnalysis = () => {
               ))}
             </div>
             
-            {viewMode === 'grid' ? (
-              <div className={styles.competitorsGrid}>
-                {competitors.map(comp => (
-                  <div key={comp.id} className={styles.competitorCard}>
-                    <div className={styles.competitorHeader}>
-                      <div className={styles.competitorLogo}>
-                        <img src={comp.logo} alt={`${comp.name} logo`} />
-                      </div>
-                      <div className={styles.competitorInfo}>
-                        <h3 className={styles.competitorName}>{comp.name}</h3>
-                        <p className={styles.competitorPublisher}>{comp.publisher}</p>
-                        <span className={styles.competitorCategory}>{comp.category}</span>
-                      </div>
-                    </div>
-                    <div className={styles.competitorStats}>
-                      <div className={styles.statItem}>
-                        <span className={styles.statLabel}>Users</span>
-                        <span className={styles.statValue}>{comp.userBase}</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statLabel}>Revenue</span>
-                        <span className={styles.statValue}>{comp.revenue}</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statLabel}>Growth</span>
-                        <span className={`${styles.statValue} ${styles.positive}`}>{comp.growth}</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statLabel}>Rating</span>
-                        <span className={styles.statValue}>{comp.rating}</span>
-                      </div>
-                    </div>
-                    <div className={styles.competitorActions}>
-                      <button className={styles.detailButton}>View Details</button>
-                    </div>
-                  </div>
-                ))}
+            {/* Show message if no results */}
+            {filteredCompetitors.length === 0 ? (
+              <div className={styles.noResultsContainer}>
+                <FaSearch size={48} className={styles.noResultsIcon} />
+                <h3>No matching competitors found</h3>
+                <p>Try adjusting your search terms or filters</p>
+                <button className={styles.resetButton} onClick={() => {setSearchQuery(''); setSelectedProject('all');}}>
+                  Reset Filters
+                </button>
               </div>
             ) : (
-              <div className={styles.competitorsTable}>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Publisher</th>
-                      <th>Category</th>
-                      <th>User Base</th>
-                      <th>Revenue</th>
-                      <th>Growth</th>
-                      <th>Rating</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {competitors.map(comp => (
-                      <tr key={comp.id}>
-                        <td className={styles.nameCell}>
-                          <img src={comp.logo} alt={`${comp.name} logo`} className={styles.tableLogo} />
-                          <span>{comp.name}</span>
-                        </td>
-                        <td>{comp.publisher}</td>
-                        <td>{comp.category}</td>
-                        <td>{comp.userBase}</td>
-                        <td>{comp.revenue}</td>
-                        <td className={styles.positive}>{comp.growth}</td>
-                        <td>{comp.rating}</td>
-                        <td>
-                          <button className={styles.tableActionButton}>Details</button>
-                        </td>
+              viewMode === 'grid' ? (
+                <div className={styles.competitorsGrid}>
+                  {filteredCompetitors.map(comp => (
+                    <div key={comp.id} className={styles.competitorCard}>
+                      <div className={styles.competitorHeader}>
+                        <div className={styles.competitorLogo}>
+                          <img src={comp.logo} alt={`${comp.name} logo`} />
+                        </div>
+                        <div className={styles.competitorInfo}>
+                          <h3 className={styles.competitorName}>{comp.name}</h3>
+                          <p className={styles.competitorPublisher}>{comp.publisher}</p>
+                          <div className={styles.competitorMeta}>
+                            <span className={styles.competitorCategory}>{comp.category}</span>
+                            <span className={styles.competitorProject}>
+                              {projects.find(p => p.id === comp.projectId)?.code}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles.competitorStats}>
+                        <div className={styles.statItem}>
+                          <span className={styles.statLabel}>Users</span>
+                          <span className={styles.statValue}>{comp.userBase}</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statLabel}>Revenue</span>
+                          <span className={styles.statValue}>{comp.revenue}</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statLabel}>Growth</span>
+                          <span className={`${styles.statValue} ${styles.positive}`}>{comp.growth}</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statLabel}>Rating</span>
+                          <span className={styles.statValue}>{comp.rating}</span>
+                        </div>
+                      </div>
+                      <div className={styles.competitorActions}>
+                        <button className={styles.detailButton}>View Details</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className={styles.competitorsTable}>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Publisher</th>
+                        <th>Category</th>
+                        <th>Project</th>
+                        <th>User Base</th>
+                        <th>Revenue</th>
+                        <th>Growth</th>
+                        <th>Rating</th>
+                        <th>Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {filteredCompetitors.map(comp => (
+                        <tr key={comp.id}>
+                          <td className={styles.nameCell}>
+                            <img src={comp.logo} alt={`${comp.name} logo`} className={styles.tableLogo} />
+                            <span>{comp.name}</span>
+                          </td>
+                          <td>{comp.publisher}</td>
+                          <td>{comp.category}</td>
+                          <td>{projects.find(p => p.id === comp.projectId)?.code}</td>
+                          <td>{comp.userBase}</td>
+                          <td>{comp.revenue}</td>
+                          <td className={styles.positive}>{comp.growth}</td>
+                          <td>{comp.rating}</td>
+                          <td>
+                            <button className={styles.tableActionButton}>Details</button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )
             )}
             
-            <div className={styles.chartSection}>
-              <div className={styles.chartCard}>
-                <div className={styles.chartHeader}>
-                  <h3>Market Positioning Map</h3>
-                  <div className={styles.chartControls}>
-                    <select className={styles.chartSelect}>
-                      <option value="revenue-rating">Revenue vs Rating</option>
-                      <option value="users-engagement">Users vs Engagement</option>
-                      <option value="growth-retention">Growth vs Retention</option>
-                    </select>
+            {filteredCompetitors.length > 0 && (
+              <div className={styles.chartSection}>
+                <div className={styles.chartCard}>
+                  <div className={styles.chartHeader}>
+                    <h3>Market Positioning Map</h3>
+                    <div className={styles.chartControls}>
+                      <select className={styles.chartSelect}>
+                        <option value="revenue-rating">Revenue vs Rating</option>
+                        <option value="users-engagement">Users vs Engagement</option>
+                        <option value="growth-retention">Growth vs Retention</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className={styles.chartPlaceholder}>
+                    <FaChartLine size={40} />
+                    <p>Scatter plot visualization will appear here</p>
                   </div>
                 </div>
-                <div className={styles.chartPlaceholder}>
-                  <FaChartLine size={40} />
-                  <p>Scatter plot visualization will appear here</p>
-                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
         

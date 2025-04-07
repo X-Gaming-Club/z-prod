@@ -4,18 +4,25 @@ import styles from "../../styles/Homepage.module.css";
 import Sidebar from "../components/Sidebar";
 import { IoSend } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io"; // Added for file removal icon
+import { IoMdClose } from "react-icons/io";
 import { BsGlobe } from "react-icons/bs";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import ChatComponent from "../components/ChatComponent";
 import gsap from "gsap";
+import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
 
 const Homepage = () => {
   const [inputValue, setInputValue] = useState("");
   const [firstQuery, setFirstQuery] = useState(true);
   const [initialQuery, setInitialQuery] = useState("");
-  // New state for attached files
   const [attachedFiles, setAttachedFiles] = useState([]);
+  // Added search count tracking
+  const [searchCount, setSearchCount] = useState(0);
+  // Added state for login modal
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  
+  const router = useRouter();
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
   
@@ -89,15 +96,23 @@ const Homepage = () => {
     setInputValue(e.target.value);
   };
 
+  // Updated to track search count and show login modal
   const handleSendMessage = () => {
-    // Modified to check for either text or attached files
+    // Check if there's either text or attached file
     if (inputValue.trim() === "" && attachedFiles.length === 0) return;
     
-    // Save initial query and files to pass to chat component
-    setInitialQuery(inputValue);
+    // Increment search count
+    const newCount = searchCount + 1;
+    setSearchCount(newCount);
     
-    // Change to chat view
-    setFirstQuery(false);
+    // Check if we should show login modal after 3 searches
+    if (newCount >= 3 && !showLoginModal) {
+      setShowLoginModal(true);
+    } else {
+      // Normal flow - proceed with chat
+      setInitialQuery(inputValue);
+      setFirstQuery(false);
+    }
   };
 
   const handlePromptClick = (prompt) => {
@@ -148,6 +163,15 @@ const Homepage = () => {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  };
+
+  // Handle search count update from ChatComponent
+  const handleSearchCountUpdate = () => {
+    const newCount = searchCount + 1;
+    setSearchCount(newCount);
+    if (newCount >= 3 && !showLoginModal) {
+      setShowLoginModal(true);
+    }
   };
 
   return (
@@ -244,10 +268,41 @@ const Homepage = () => {
               </div>
             </div>
           ) : (
-            <ChatComponent initialQuery={initialQuery} initialFiles={attachedFiles} />
+            <ChatComponent 
+              initialQuery={initialQuery} 
+              initialFiles={attachedFiles} 
+              onSearchCountUpdate={handleSearchCountUpdate}
+            />
           )}
         </div>
       </main>
+
+      {/* Login Modal */}
+      {showLoginModal && (
+        <div className={styles.loginModalOverlay}>
+          <div className={styles.loginModalContent}>
+            <h3 className={styles.loginModalTitle}>Create an Account to Continue</h3>
+            <p className={styles.loginModalText}>
+              You've reached the limit for guest searches. Please log in or create an account to continue using all features.
+            </p>
+            <div className={styles.loginModalButtons}>
+            <button 
+  className={styles.loginButton}
+  onClick={() => setShowLoginModal(false)}
+>
+  <FcGoogle size={18} />
+  <span>Continue with Google</span>
+</button>
+              <button 
+                className={styles.cancelButton}
+                onClick={() => setShowLoginModal(false)}
+              >
+                Maybe Later
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

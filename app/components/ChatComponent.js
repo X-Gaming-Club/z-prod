@@ -6,7 +6,8 @@ import { IoMdClose } from "react-icons/io";
 import { FiEdit2, FiCopy, FiCheck } from "react-icons/fi"; // Added icons for edit and copy functionality
 import styles from "../../styles/ChatComponent.module.css";
 
-const ChatComponent = ({ initialQuery, initialFiles = [] }) => {
+// Added onSearchCountUpdate to props
+const ChatComponent = ({ initialQuery, initialFiles = [], onSearchCountUpdate }) => {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState([]);
   const [isThinking, setIsThinking] = useState(false);
@@ -55,6 +56,11 @@ const ChatComponent = ({ initialQuery, initialFiles = [] }) => {
   };
 
   const handleInitialQuery = (query, files = []) => {
+    // Update search count if callback provided
+    if (onSearchCountUpdate) {
+      onSearchCountUpdate();
+    }
+    
     // Add user message with a unique ID
     const userMessage = {
       id: generateUniqueId(),
@@ -176,6 +182,11 @@ const ChatComponent = ({ initialQuery, initialFiles = [] }) => {
   const handleSendMessage = () => {
     // Check if there's either text or files to send
     if (inputValue.trim() === "" && attachedFiles.length === 0) return;
+
+    // Update search count if callback provided
+    if (onSearchCountUpdate) {
+      onSearchCountUpdate();
+    }
 
     // Create message text including file info if there are any
     let messageText = inputValue.trim();
