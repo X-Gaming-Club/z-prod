@@ -4,6 +4,7 @@ import styles from "../../styles/Homepage.module.css";
 import Sidebar from "../components/Sidebar";
 import { IoSend } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io"; // Added for file removal icon
 import { BsGlobe } from "react-icons/bs";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import ChatComponent from "../components/ChatComponent";
@@ -13,6 +14,8 @@ const Homepage = () => {
   const [inputValue, setInputValue] = useState("");
   const [firstQuery, setFirstQuery] = useState(true);
   const [initialQuery, setInitialQuery] = useState("");
+  // New state for attached files
+  const [attachedFiles, setAttachedFiles] = useState([]);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
   
@@ -87,9 +90,10 @@ const Homepage = () => {
   };
 
   const handleSendMessage = () => {
-    if (inputValue.trim() === "") return;
+    // Modified to check for either text or attached files
+    if (inputValue.trim() === "" && attachedFiles.length === 0) return;
     
-    // Save initial query to pass to chat component
+    // Save initial query and files to pass to chat component
     setInitialQuery(inputValue);
     
     // Change to chat view
@@ -113,10 +117,37 @@ const Homepage = () => {
     fileInputRef.current.click();
   };
 
+  // Generate a unique ID for files
+  const generateUniqueId = () => {
+    return Date.now() + "-" + Math.random().toString(36).substring(2, 9);
+  };
+
+  // Updated to handle files properly
   const handleFileChange = (e) => {
-    // Handle file upload here
-    console.log("File selected:", e.target.files);
-    // You can implement file handling logic here
+    if (e.target.files && e.target.files.length > 0) {
+      // Convert FileList to array and add to attachedFiles
+      const newFiles = Array.from(e.target.files).map(file => ({
+        id: generateUniqueId(),
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        file: file // Store the actual file object
+      }));
+      
+      setAttachedFiles(prev => [...prev, ...newFiles]);
+    }
+  };
+
+  // New function to handle file removal
+  const handleRemoveFile = (fileId) => {
+    setAttachedFiles(prev => prev.filter(file => file.id !== fileId));
+  };
+
+  // Function to format file size
+  const formatFileSize = (bytes) => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
   };
 
   return (
@@ -145,14 +176,32 @@ const Homepage = () => {
                   />
                   <button
                     className={`${styles.sendButton} ${
-                      !inputValue.trim() ? styles.sendButtonDisabled : styles.sendButtonActive
+                      (!inputValue.trim() && attachedFiles.length === 0) ? styles.sendButtonDisabled : styles.sendButtonActive
                     }`}
                     onClick={handleSendMessage}
-                    disabled={!inputValue.trim()}
+                    disabled={!inputValue.trim() && attachedFiles.length === 0}
                   >
                     <IoSend />
                   </button>
                 </div>
+
+                {/* File attachment display area */}
+                {attachedFiles.length > 0 && (
+                  <div className={styles.attachmentsContainer}>
+                    {attachedFiles.map(file => (
+                      <div key={file.id} className={styles.attachmentItem}>
+                        <span className={styles.attachmentName}>{file.name}</span>
+                        <span className={styles.attachmentSize}>{formatFileSize(file.size)}</span>
+                        <button 
+                          className={styles.removeAttachmentButton}
+                          onClick={() => handleRemoveFile(file.id)}
+                        >
+                          <IoMdClose />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className={styles.actionButtons}>
                   <button
@@ -195,7 +244,7 @@ const Homepage = () => {
               </div>
             </div>
           ) : (
-            <ChatComponent initialQuery={initialQuery} />
+            <ChatComponent initialQuery={initialQuery} initialFiles={attachedFiles} />
           )}
         </div>
       </main>

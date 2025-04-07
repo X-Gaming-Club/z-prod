@@ -8,12 +8,13 @@ import { CgInsights } from "react-icons/cg";
 import { BiLogOut } from "react-icons/bi";
 import styles from '../../styles/Sidebar.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 
 const Sidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const [activeIcon, setActiveIcon] = useState('home');
+  const [activeIcon, setActiveIcon] = useState('');
   const [hoveredIcon, setHoveredIcon] = useState(null);
   const [showLogout, setShowLogout] = useState(false);
   
@@ -42,15 +43,6 @@ const Sidebar = () => {
     { id: 'LiveopsInsights', icon: <CgInsights size={20} />, name: 'LiveopsInsights', route: '/LiveopsInsights' },
   ];
   
-  // Handle icon click with navigation - fixed to prevent flash of incorrect active state
-  const handleIconClick = (itemId, route) => {
-    // First set the active icon immediately to prevent flickering
-    setActiveIcon(itemId);
-    
-    // Then navigate to the route
-    router.push(route);
-  };
-  
   // Handle profile click - toggle logout button visibility
   const handleProfileClick = () => {
     setShowLogout(!showLogout);
@@ -75,18 +67,20 @@ const Sidebar = () => {
       <div className={styles.sidebarContent}>
         <div className={styles.topIcons}>
           {menuItems.map((item) => (
-            <button
-              key={item.id}
-              className={`${styles.iconButton} ${activeIcon === item.id ? styles.active : ''}`}
-              onClick={() => handleIconClick(item.id, item.route)}
-              onMouseEnter={() => setHoveredIcon(item.id)}
-              onMouseLeave={() => setHoveredIcon(null)}
-            >
-              {item.icon}
-              {hoveredIcon === item.id && (
-                <span className={styles.tooltip}>{item.name}</span>
-              )}
-            </button>
+            <div key={item.id} className={styles.linkContainer}>
+              <Link href={item.route} className={styles.navLink}>
+                <button
+                  className={`${styles.iconButton} ${activeIcon === item.id ? styles.active : ''}`}
+                  onMouseEnter={() => setHoveredIcon(item.id)}
+                  onMouseLeave={() => setHoveredIcon(null)}
+                >
+                  {item.icon}
+                  {hoveredIcon === item.id && (
+                    <span className={styles.tooltip}>{item.name}</span>
+                  )}
+                </button>
+              </Link>
+            </div>
           ))}
         </div>
         <div className={styles.bottomIcons}>
