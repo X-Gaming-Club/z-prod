@@ -5,13 +5,19 @@ import { FcGoogle } from "react-icons/fc";
 import styles from "../../styles/LoginModal.module.css";
 
 // New component for the login modal
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, onGoogleSignIn }) => {
   const router = useRouter();
 
   // Handle sign in click
-  const handleSignIn = () => {
-    router.push("/login?reason=search_limit&returnUrl=" + encodeURIComponent("/Homepage"));
-  };
+// Handle sign in click
+const handleSignIn = () => {
+  // Check if onGoogleSignIn prop exists and call it, otherwise fallback to onClose
+  if (typeof onGoogleSignIn === 'function') {
+    onGoogleSignIn();
+  } else {
+    onClose();
+  }
+};
 
   if (!isOpen) return null;
 

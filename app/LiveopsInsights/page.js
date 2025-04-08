@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { FaChartLine, FaCalendarAlt, FaFilter, FaDownload, FaSearch } from 'react-icons/fa';
 import { BiTrendingUp } from 'react-icons/bi';
 import { IoMdRefresh } from 'react-icons/io';
+import Header from '../components/Header';
 
 const LiveopsInsights = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -28,6 +29,7 @@ const LiveopsInsights = () => {
 
   return (
     <div className={styles.pageContainer}>
+    <Header />
       <Sidebar />
       <main className={styles.mainContent}>
         <div className={styles.header}>

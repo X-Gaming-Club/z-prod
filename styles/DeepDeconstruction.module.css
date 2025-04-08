@@ -1,0 +1,246 @@
+/* Deep Deconstruction Component Styles */
+.deepDeconstruction {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+  }
+  
+  .backButton {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: white;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .backButton:hover {
+    background-color: var(--hover-color, #f5f5f7);
+  }
+  
+  .deepDeconstruction h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+  }
+  
+  .deepDeconstruction h4 {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 16px 0;
+    color: var(--text-primary, #333);
+  }
+  
+  .gameComparison {
+    background-color: white;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .gameHeaders {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .gameColumn {
+    flex: 1;
+    text-align: center;
+    min-width: 120px;
+  }
+  
+  .gameColumn h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+    padding: 12px;
+    background-color: var(--primary-light, #f0f0ff);
+    border-radius: 8px;
+    border: 1px solid var(--primary-color, #6366f1);
+  }
+  
+  .addGameColumn {
+    flex: 1;
+    min-width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .addMoreButton {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--hover-color, #f5f5f7);
+    border: 1px dashed var(--border-color, #ccc);
+    border-radius: 8px;
+    text-align: center;
+    color: var(--primary-color, #6366f1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .addMoreButton:hover {
+    background-color: var(--primary-light, #f0f0ff);
+  }
+  
+  .aboutGames {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .gameInfo {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .gameInfoCard {
+    flex: 1;
+    min-width: 120px;
+    padding: 16px;
+    background-color: var(--hover-color, #f5f5f7);
+    border-radius: 8px;
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+  }
+  
+  .metricsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .metricRows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .metricRow {
+    display: flex;
+    align-items: center;
+    background-color: var(--hover-color, #f5f5f7);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  
+  .metricLabel {
+    width: 120px;
+    font-weight: 500;
+    color: var(--text-secondary, #555);
+  }
+  
+  .metricValue {
+    flex: 1;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .qualitativeSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .analysisContent {
+    padding: 16px;
+    background-color: var(--hover-color, #f5f5f7);
+    border-radius: 8px;
+  }
+  
+  .analysisContent p {
+    margin: 0;
+    color: var(--text-secondary, #555);
+    line-height: 1.5;
+  }
+  
+  .deconstructedFields {
+    background-color: white;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .fieldsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  
+  .fieldCard {
+    padding: 20px;
+    background-color: var(--hover-color, #f5f5f7);
+    border-radius: 8px;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+  }
+  
+  .exportButton {
+    padding: 12px 16px;
+    background-color: var(--primary-color, #6366f1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    align-self: center;
+    width: 200px;
+  }
+  
+  .exportButton:hover {
+    background-color: var(--primary-dark, #4f46e5);
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .gameInfo,
+    .gameHeaders {
+      flex-direction: column;
+    }
+    
+    .gameColumn,
+    .addGameColumn {
+      width: 100%;
+    }
+    
+    .metricRow {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .metricLabel {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    
+    .fieldsGrid {
+      grid-template-columns: 1fr;
+    }
+  }

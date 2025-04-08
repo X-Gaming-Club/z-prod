@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { FaRedditAlien, FaSearch, FaFilter, FaSortAmountDown, FaRegClock, FaFire, FaChartLine } from 'react-icons/fa';
 import { IoMdTrendingUp } from 'react-icons/io';
 import { BsBookmark, BsCalendar3, BsCardText } from 'react-icons/bs';
+import Header from '../components/Header';
 
 const RedditResearch = () => {
   const [activeTab, setActiveTab] = useState('posts');
@@ -86,6 +87,8 @@ const RedditResearch = () => {
 
   return (
     <div className={styles.pageContainer}>
+      
+      <Header />
       <Sidebar />
       <main className={styles.mainContent}>
         <div className={styles.header}>

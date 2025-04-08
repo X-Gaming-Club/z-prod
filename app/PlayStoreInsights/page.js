@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { BsStarFill, BsStarHalf, BsDownload, BsFillBarChartFill } from 'react-icons/bs';
 import { FaChartLine, FaFilter, FaSearch, FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { BiMobile } from 'react-icons/bi';
+import Header from '../components/Header';
 
 const PlayStoreInsights = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -99,8 +100,10 @@ const PlayStoreInsights = () => {
 
   return (
     <div className={styles.pageContainer}>
+     
+      <Header />
       <Sidebar />
-      <main className={styles.mainContent}>
+      <main className={styles.mainContent} >
         <div className={styles.header}>
           <div className={styles.titleSection}>
             <h1 className={styles.title}>

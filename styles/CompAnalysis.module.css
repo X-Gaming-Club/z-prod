@@ -1,894 +1,295 @@
-.pageContainer {
+/* Main Container */
+.container {
   display: flex;
   height: 100vh;
   width: 100%;
 }
 
-.mainContent {
+.mainContainer {
   flex: 1;
   margin-left: 64px;
-  padding: 24px;
-  background-color: var(--main-bg);
+  padding: 20px;
+  background-color: var(--main-bg, #f8f9fa);
   overflow-y: auto;
+  margin-top: 60px;
 }
 
-/* Header Section */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.titleSection {
-  flex: 1;
-}
-
-.title {
-  font-size: 28px;
-  font-weight: 500;
-  color: var(--primary-color);
-  margin-bottom: 4px;
-}
-
-.subtitle {
-  font-size: 16px;
-  color: var(--text-secondary);
-}
-
-.controls {
+/* Search Section */
+.searchContainer {
   display: flex;
   gap: 16px;
-  align-items: center;
-}
-
-.timeRangeSelector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background-color: var(--card-bg);
-  border-radius: var(--btn-radius);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-}
-
-.selectControl {
-  border: none;
-  background: transparent;
-  color: var(--text-primary);
-  font-size: 14px;
-  outline: none;
-  cursor: pointer;
-}
-
-.controlButton {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: var(--btn-radius);
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg);
-  color: var(--text-secondary);
-  font-size: 14px;
-  transition: all var(--animation-speed) ease;
-}
-
-.controlButton:hover {
-  background-color: var(--hover-color);
-  border-color: var(--primary-light);
-  color: var(--text-primary);
-}
-
-/* New Search Section */
-.searchSection {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 20px;
-  width: 100%;
-  position: relative;
-}
-
-.searchInputWrapper {
-  flex: 1;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.searchIcon {
-  position: absolute;
-  left: 14px;
-  color: var(--text-light);
-  font-size: 18px;
-  z-index: 1;
+  margin-bottom: 24px;
 }
 
 .searchInput {
   flex: 1;
-  padding: 12px 16px 12px 40px;
-  border-radius: 24px;
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg);
-  color: var(--text-primary);
-  font-size: 15px;
+  position: relative;
+}
+
+.searchInput input {
   width: 100%;
-  transition: all var(--animation-speed) ease;
-  box-shadow: var(--shadow-sm);
-}
-
-.searchInput:focus {
-  border-color: var(--primary-light);
-  box-shadow: 0 0 0 2px rgba(138, 107, 74, 0.1);
-  outline: none;
-}
-
-.clearButton {
-  position: absolute;
-  right: 14px;
-  background: none;
-  border: none;
-  color: var(--text-light);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  transition: all var(--animation-speed) ease;
-}
-
-.clearButton:hover {
-  background-color: var(--hover-color);
-  color: var(--text-secondary);
-}
-
-.filterButton {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 20px;
-  height: 42px;
-  border-radius: 24px;
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg);
-  color: var(--text-secondary);
-  font-size: 14px;
-  transition: all var(--animation-speed) ease;
-  white-space: nowrap;
-}
-
-.filterButton:hover {
-  background-color: var(--hover-color);
-  border-color: var(--primary-light);
-  color: var(--text-primary);
-}
-
-/* Filter Options */
-.filterOptions {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding: 16px;
-  background-color: var(--card-bg);
-  border-radius: var(--card-radius);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
-  animation: slideDown 0.3s ease;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.filterGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 140px;
-}
-
-.filterLabel {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-secondary);
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.filterSelect {
-  padding: 8px 12px;
-  border-radius: var(--btn-radius);
-  border: 1px solid var(--border-color);
-  background-color: var(--input-bg);
-  color: var(--text-primary);
-  font-size: 14px;
-  cursor: pointer;
-  outline: none;
-  transition: all var(--animation-speed) ease;
-}
-
-.filterSelect:focus {
-  border-color: var(--primary-light);
-}
-
-/* Search Results */
-.searchResults {
-  margin-bottom: 20px;
-  padding: 16px;
-  background-color: var(--hover-color);
-  border-radius: var(--card-radius);
-  border-left: 3px solid var(--primary-color);
-  animation: fadeIn 0.3s ease;
-}
-
-.searchResults p {
-  color: var(--text-primary);
-  font-size: 14px;
-}
-
-.resultCount {
-  color: var(--primary-color);
-  font-weight: 500;
-}
-
-.noResults {
-  color: #F44336;
-  font-weight: 500;
-}
-
-.noResultsContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 48px 0;
-  text-align: center;
-  color: var(--text-secondary);
-}
-
-.noResultsIcon {
-  color: var(--text-light);
-  margin-bottom: 16px;
-}
-
-.noResultsContainer h3 {
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: var(--text-primary);
-}
-
-.noResultsContainer p {
-  margin-bottom: 20px;
-}
-
-.resetButton {
-  padding: 8px 16px;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  border: none;
-  border-radius: var(--btn-radius);
-  font-size: 14px;
-  cursor: pointer;
-  transition: all var(--animation-speed) ease;
-}
-
-.resetButton:hover {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Tabs Section */
-.tabsContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.tabs {
-  display: flex;
-  gap: 8px;
-}
-
-.tabButton {
-  padding: 12px 20px;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--text-secondary);
-  font-size: 15px;
-  font-weight: 500;
-  transition: all var(--animation-speed) ease;
-  cursor: pointer;
-}
-
-.tabButton:hover {
-  color: var(--text-primary);
-}
-
-.activeTab {
-  color: var(--primary-color);
-  border-bottom: 2px solid var(--primary-color);
-}
-
-.viewControls {
-  display: flex;
-  gap: 8px;
-}
-
-.viewButton {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: var(--btn-radius);
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg);
-  color: var(--text-secondary);
-  transition: all var(--animation-speed) ease;
-}
-
-.viewButton:hover {
-  background-color: var(--hover-color);
-}
-
-.activeView {
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  border-color: var(--primary-color);
-}
-
-/* Overview tab content */
-.overviewContent {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.metricsSection {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-.metricCard {
-  background-color: var(--card-bg);
-  border-radius: var(--card-radius);
-  padding: 20px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-  transition: all var(--animation-speed) ease;
-}
-
-.metricCard:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.metricTitle {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 12px;
-}
-
-.metricValue {
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-
-.metricChange {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.positive {
-  color: #4CAF50;
-}
-
-.negative {
-  color: #F44336;
-}
-
-/* Competitors Grid View */
-.competitorsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.competitorCard {
-  background-color: var(--card-bg);
-  border-radius: var(--card-radius);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-  overflow: hidden;
-  transition: all var(--animation-speed) ease;
-}
-
-.competitorCard:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.competitorHeader {
-  display: flex;
-  gap: 16px;
-  padding: 16px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.competitorLogo {
-  width: 48px;
-  height: 48px;
-  background-color: var(--hover-color);
+  padding: 10px 16px 10px 40px;
+  border: 1px solid var(--border-color, #ddd);
   border-radius: 8px;
-  overflow: hidden;
-}
-
-.competitorLogo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.competitorInfo {
-  flex: 1;
-}
-
-.competitorName {
   font-size: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 4px;
+  transition: border-color 0.2s ease;
 }
 
-.competitorPublisher {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
-
-.competitorMeta {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.competitorCategory {
-  display: inline-block;
-  padding: 2px 8px;
-  background-color: var(--hover-color);
-  border-radius: 12px;
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-
-.competitorProject {
-  display: inline-block;
-  padding: 2px 8px;
-  background-color: var(--primary-light);
-  border-radius: 12px;
-  font-size: 12px;
-  color: var(--primary-dark);
-  font-weight: 500;
-}
-
-.competitorStats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  padding: 16px;
-}
-
-.statItem {
-  display: flex;
-  flex-direction: column;
-}
-
-.statLabel {
-  font-size: 12px;
-  color: var(--text-light);
-  margin-bottom: 4px;
-}
-
-.statValue {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.competitorActions {
-  padding: 16px;
-  border-top: 1px solid var(--border-color);
-  text-align: right;
-}
-
-.detailButton {
-  padding: 8px 16px;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  border: none;
-  border-radius: var(--btn-radius);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--animation-speed) ease;
-}
-
-.detailButton:hover {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-/* Competitors Table View */
-.competitorsTable {
-  background-color: var(--card-bg);
-  border-radius: var(--card-radius);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-  overflow-x: auto;
-}
-
-.competitorsTable table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.competitorsTable th {
-  text-align: left;
-  padding: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
-  background-color: var(--hover-color);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.competitorsTable td {
-  padding: 16px;
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-secondary);
-}
-
-.competitorsTable tr:last-child td {
-  border-bottom: none;
-}
-
-.competitorsTable tr:hover td {
-  background-color: var(--hover-color);
-}
-
-.nameCell {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.tableLogo {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  object-fit: cover;
-}
-
-.tableActionButton {
-  padding: 6px 12px;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  border: none;
-  border-radius: var(--btn-radius);
-  font-size: 12px;
-  cursor: pointer;
-  transition: all var(--animation-speed) ease;
-}
-
-.tableActionButton:hover {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-/* Chart Section */
-.chartSection {
-  margin-top: 24px;
-}
-
-.chartCard {
-  background-color: var(--card-bg);
-  border-radius: var(--card-radius);
-  padding: 20px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-}
-
-.chartHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.chartHeader h3 {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.chartSelect {
-  padding: 6px 12px;
-  border-radius: var(--btn-radius);
-  border: 1px solid var(--border-color);
-  background-color: var(--input-bg);
-  color: var(--text-secondary);
-  font-size: 14px;
+.searchInput input:focus {
   outline: none;
+  border-color: var(--primary-color, #6366f1);
 }
 
-.chartPlaceholder {
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: var(--text-light);
-  background-color: var(--hover-color);
-  border-radius: var(--card-radius);
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light, #888);
 }
 
-.chartPlaceholder p {
-  margin-top: 16px;
-  font-size: 14px;
+.studioDropdown {
+  width: 120px;
 }
 
-/* Feature Comparison */
-.featuresContent {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.featureTableContainer {
-  background-color: var(--card-bg);
-  border-radius: var(--card-radius);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-  overflow-x: auto;
-}
-
-.featureTable {
+.studioDropdown select {
   width: 100%;
-  border-collapse: collapse;
-}
-
-.featureTable th {
-  text-align: left;
-  padding: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
-  background-color: var(--hover-color);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.featureTable th:first-child {
-  width: 200px;
-}
-
-.featureTable td {
-  padding: 16px;
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-secondary);
-}
-
-.featureTable tr:last-child td {
-  border-bottom: none;
-}
-
-.featureTable tr:hover td {
-  background-color: var(--hover-color);
-}
-
-.ourGameCell {
-  font-weight: 500;
-  color: var(--primary-color);
-}
-
-.featureAnalysis {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 24px;
-}
-
-.analysisCard {
-  background-color: var(--card-bg);
-  border-radius: var(--card-radius);
-  padding: 20px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-}
-
-.analysisCard h3 {
+  padding: 10px;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
   font-size: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 16px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
 }
 
-.opportunitiesList {
+.studioDropdown select:focus {
+  outline: none;
+  border-color: var(--primary-color, #6366f1);
+}
+
+/* Main Content Grid */
+.mainContent {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  height: calc(100vh - 140px);
+}
+
+/* Left Section */
+.leftSection {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.opportunityItem {
+.addButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addButton:hover {
+  background-color: var(--hover-color, #f5f5f7);
+  transform: translateY(-2px);
+}
+
+.gameCategories {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px;
-  background-color: var(--hover-color);
-  border-radius: var(--card-radius);
-  border-left: 3px solid var(--primary-color);
+  gap: 24px;
+  overflow-y: auto;
 }
 
-.opportunityBadge {
-  display: inline-block;
-  padding: 4px 8px;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  border-radius: 12px;
-  font-size: 12px;
+.categorySection h3 {
+  font-size: 16px;
   font-weight: 500;
-  align-self: flex-start;
+  margin: 0 0 12px 0;
+  color: var(--text-primary, #333);
 }
 
-.opportunityItem p {
-  color: var(--text-primary);
+.gameList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.gameCard {
+  padding: 12px 16px;
+  background-color: white;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.gameCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gameCard.selected {
+  background-color: var(--primary-light, #f0f0ff);
+  border-color: var(--primary-color, #6366f1);
+  font-weight: 500;
+}
+
+.emptyState {
+  padding: 12px;
+  color: var(--text-light, #888);
+  font-style: italic;
+  font-size: 14px;
+}
+
+/* Right Section */
+.rightSection {
+  background-color: white;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+}
+
+.rightSection h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 16px 0;
+  color: var(--text-primary, #333);
+}
+
+.selectedGames {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.selectedGame {
+  flex: 1;
+  min-width: 120px;
+  padding: 24px;
+  background-color: var(--primary-light, #f0f0ff);
+  border: 1px solid var(--primary-color, #6366f1);
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.comparisonContent {
+  flex: 1;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.briefDeconstruction {
+  background-color: var(--hover-color, #f5f5f7);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.briefDeconstruction p {
+  margin: 0 0 8px 0;
+  color: var(--text-secondary, #555);
   font-size: 14px;
   line-height: 1.5;
 }
 
-/* Placeholder Content */
-.placeholderSection {
+.briefDeconstruction p:last-child {
+  margin-bottom: 0;
+}
+
+.deepDeconstructButton {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: var(--primary-color, #6366f1);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 400px;
-  text-align: center;
-  padding: 0 20px;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.placeholderIcon {
-  margin-bottom: 24px;
-  color: var(--primary-light);
+.deepDeconstructButton:hover {
+  background-color: var(--primary-dark, #4f46e5);
+  transform: translateY(-2px);
 }
 
-.placeholderSection h2 {
-  font-size: 24px;
-  color: var(--text-primary);
-  margin-bottom: 12px;
+.buttonIcon {
+  font-size: 18px;
 }
 
-.placeholderSection p {
-  max-width: 500px;
-  color: var(--text-secondary);
-  line-height: 1.6;
+.exportButton {
+  padding: 12px 16px;
+  background-color: var(--hover-color, #f5f5f7);
+  color: var(--text-primary, #333);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-top: auto;
+  transition: background-color 0.2s ease;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .featureAnalysis {
+.exportButton:hover {
+  background-color: #e9e9ec;
+}
+
+/* Responsive styles */
+@media (max-width: 1100px) {
+  .mainContent {
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
   }
   
-  .metricsSection {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .filterOptions {
-    flex-wrap: wrap;
+  .rightSection {
+    margin-top: 16px;
   }
 }
 
 @media (max-width: 768px) {
-  .mainContent {
+  .mainContainer {
     margin-left: 56px;
     padding: 16px;
   }
   
-  .header {
+  .searchContainer {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
   }
   
-  .controls {
+  .studioDropdown {
     width: 100%;
-    justify-content: space-between;
   }
   
-  .competitorsGrid {
-    grid-template-columns: 1fr;
-  }
-  
-  .metricsSection {
-    grid-template-columns: 1fr;
-  }
-  
-  .tabsContainer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  
-  .tabs {
-    width: 100%;
-    overflow-x: auto;
-    padding-bottom: 8px;
-  }
-  
-  .viewControls {
-    padding-bottom: 8px;
-  }
-  
-  .tabButton {
-    padding: 12px 16px;
-    white-space: nowrap;
-  }
-  
-  .searchSection {
+  .selectedGames {
     flex-direction: column;
   }
-}
-
-@media (max-width: 480px) {
-  .mainContent {
-    margin-left: 50px;
-    padding: 12px;
-  }
   
-  .title {
-    font-size: 24px;
-  }
-  
-  .subtitle {
-    font-size: 14px;
-  }
-  
-  .controls {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .timeRangeSelector, .controlButton {
-    font-size: 12px;
-    padding: 6px 12px;
-  }
-  
-  .competitorStats {
-    grid-template-columns: 1fr;
-  }
-  
-  .featureTable th, .featureTable td {
-    padding: 12px 8px;
-    font-size: 13px;
+  .selectedGame {
+    padding: 16px;
   }
 }

@@ -1,40 +1,38 @@
+/* Chat Container */
 .chatContainer {
   width: 100%;
-  max-height: calc(100vh - 140px);
+  max-width: 768px;
+  max-height: calc(100vh - 200px);
+  margin: 0 auto;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 20px 16px 90px 16px;
+  gap: 16px;
+  padding: 20px 0 90px 0;
+  scroll-behavior: smooth;
 }
 
+/* Message Styles */
 .message {
   display: flex;
-  opacity: 0;
-  animation: fadeIn 0.3s forwards;
   width: 100%;
   position: relative;
 }
 
-.userMessage {
-  justify-content: flex-end;
-}
-
 .messageContent {
   max-width: 80%;
+  width: fit-content;
   border-radius: var(--card-radius);
   padding: 12px 16px;
   position: relative;
   background-color: var(--card-bg);
   box-shadow: var(--shadow-sm);
-  animation: scaleIn 0.2s ease-out forwards;
-  transform-origin: left bottom;
+  margin-bottom: 8px;
 }
 
 .userMessage .messageContent {
   background-color: var(--primary-light);
-  transform-origin: right bottom;
-  color: var(--text-primary);
+  margin-left: auto;
 }
 
 .messageText {
@@ -45,153 +43,7 @@
   color: var(--text-primary);
 }
 
-/* Removed messageTimestamp classes as requested */
-
-.thinkingIndicator {
-  display: flex;
-  gap: 6px;
-  padding: 8px;
-  justify-content: center;
-  max-width: 80px;
-}
-
-.thinkingDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  opacity: 0.7;
-  animation: pulse 1.5s infinite ease-in-out;
-}
-
-.thinkingDot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.thinkingDot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-/* New styles for message actions (edit/copy) */
-.messageActions {
-  display: flex;
-  gap: 4px;
-  position: absolute;
-  top: -26px;
-  right: 0;
-  background-color: var(--card-bg);
-  border-radius: 4px;
-  padding: 3px;
-  box-shadow: var(--shadow-sm);
-  opacity: 0;
-  transform: translateY(4px);
-  transition: all 0.2s ease;
-  border: 1px solid var(--border-color);
-}
-
-.userMessage .messageContent:hover .messageActions {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.actionButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  background-color: transparent;
-  color: var(--text-light);
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.actionButton:hover {
-  background-color: var(--hover-color);
-  color: var(--primary-color);
-}
-
-.copiedIcon {
-  color: var(--primary-color);
-}
-
-/* Styles for the edit mode */
-.editContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.editInput {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid var(--primary-light);
-  border-radius: 4px;
-  font-size: 15px;
-  line-height: 1.6;
-  font-family: inherit;
-  resize: none;
-  min-height: 80px;
-  background-color: var(--input-bg);
-  color: var(--text-primary);
-  outline: none;
-}
-
-.editActions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.editActionButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.editActionButton:first-child {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.editActionButton:first-child:hover {
-  background-color: var(--primary-dark);
-}
-
-.editActionButton:last-child {
-  background-color: var(--hover-color);
-  color: var(--text-light);
-}
-
-.editActionButton:last-child:hover {
-  background-color: #f0f0f0;
-  color: #666;
-}
-
-/* Style for messages that have been edited and might have outdated responses */
-.outdatedMessage {
-  opacity: 0.8;
-}
-
-.outdatedMessage .messageContent::after {
-  content: "(edited)";
-  font-size: 11px;
-  color: var(--text-light);
-  position: absolute;
-  right: 8px;
-  bottom: 4px;
-}
-
-/* New styles for file attachments in messages */
+/* Message Files */
 .messageFiles {
   margin-top: 8px;
   display: flex;
@@ -223,11 +75,172 @@
   margin-left: 8px;
 }
 
-/* New styles for the attachment container */
+/* Message Actions */
+.messageActions {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  top: -26px;
+  right: 0;
+  background-color: var(--card-bg);
+  border-radius: var(--btn-radius);
+  padding: 4px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all var(--animation-speed) ease;
+}
+
+.userMessage .messageContent:hover .messageActions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--btn-radius);
+  background-color: transparent;
+  color: var(--text-light);
+  border: none;
+  cursor: pointer;
+  transition: all var(--animation-speed) ease;
+}
+
+.actionButton:hover {
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+}
+
+.copiedIcon {
+  color: var(--primary-color);
+}
+
+/* Edit Mode Styles */
+.editContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editInput {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--primary-light);
+  border-radius: var(--btn-radius);
+  font-size: 15px;
+  line-height: 1.6;
+  font-family: inherit;
+  resize: none;
+  min-height: 80px;
+  max-height: 200px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  outline: none;
+  overflow-y: auto;
+}
+
+.editActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.editActionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--btn-radius);
+  border: none;
+  cursor: pointer;
+  transition: all var(--animation-speed) ease;
+}
+
+.editActionButton:first-child {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.editActionButton:first-child:hover {
+  background-color: var(--primary-dark);
+}
+
+.editActionButton:last-child {
+  background-color: var(--hover-color);
+  color: var(--text-light);
+}
+
+.editActionButton:last-child:hover {
+  background-color: var(--selected-color);
+  color: var(--text-primary);
+}
+
+/* Outdated Message Styles */
+.outdatedMessage {
+  opacity: 0.8;
+}
+
+.outdatedMessage .messageContent::after {
+  content: "(edited)";
+  font-size: 11px;
+  color: var(--text-light);
+  position: absolute;
+  right: 8px;
+  bottom: 4px;
+}
+
+/* Thinking Indicator */
+.thinkingIndicator {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  justify-content: center;
+}
+
+.thinkingDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  opacity: 0.7;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.thinkingDot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.thinkingDot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Input Container */
+.inputContainer {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 768px;
+  padding: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Attachments Container */
 .attachmentsContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  width: 100%;
   padding: 8px 12px;
   margin-bottom: 8px;
   background-color: var(--card-bg);
@@ -235,8 +248,6 @@
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);
   animation: slideUp 0.3s forwards;
-  max-width: 768px;
-  width: 100%;
 }
 
 .attachmentItem {
@@ -283,20 +294,8 @@
   background-color: rgba(255, 59, 48, 0.2);
   color: #ff3b30;
 }
-/* End of new file attachment styles */
 
-.inputContainer {
-  position: fixed;
-  bottom: 24px;
-  width: 100%;
-  max-width: 768px;
-  padding: 0 24px;
-  z-index: 10;
-  animation: slideUp 0.3s forwards;
-  display: flex;
-  flex-direction: column; /* Changed to column to support attachments above input */
-}
-
+/* Input Controls Wrapper */
 .inputControlsWrapper {
   display: flex;
   align-items: center;
@@ -385,23 +384,8 @@
 
 /* Animations */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0.98);
-    opacity: 0.8;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
@@ -426,12 +410,18 @@
   }
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
+  .chatContainer {
+    padding: 20px 16px 90px 16px;
+    max-width: calc(100% - 32px);
+  }
+
   .inputContainer {
+    max-width: calc(100% - 32px);
     padding: 0 16px;
   }
-  
+
   .messageContent {
     max-width: 90%;
   }
@@ -439,28 +429,34 @@
   .attachmentName {
     max-width: 120px;
   }
-  
-  .messageActions {
-    top: -20px;
-  }
 }
 
 @media (max-width: 480px) {
+  .chatContainer {
+    padding: 20px 12px 80px 12px;
+    max-width: calc(100% - 24px);
+  }
+
   .inputContainer {
+    max-width: calc(100% - 24px);
     padding: 0 12px;
     bottom: 16px;
   }
-  
-  .chatContainer {
-    padding: 20px 8px 90px 8px;
+
+  .chatInput {
+    font-size: 14px;
+  }
+
+  .messageContent {
+    max-width: 95%;
   }
 
   .attachmentName {
     max-width: 100px;
   }
-  
+
   .editActionButton {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
 }
