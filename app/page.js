@@ -1,3 +1,5 @@
+// app/page.js
+
 "use client";
 import { redirect } from 'next/navigation'; // Added import for redirect
 
